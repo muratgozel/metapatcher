@@ -1,15 +1,14 @@
 {
   "name": "metapatcher",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "HTML document head management including meta tags, social media tags, icons and JSONLD expressions across devices.",
-  "main": "dist/minified/index.js",
+  "main": "dist/metapatcher.cjs.js",
   "scripts": {
-    "test": "for i in tests/*.js; do node \"$i\"; done",
-    "build": "npm run build-minified && npm run build-umd && npm run build-umd-polyfilled",
-    "build-minified": "mkdir -p dist/minified && BABEL_ENV=development ./node_modules/.bin/minify ./source -d ./dist/minified && ls -lR ./dist",
-    "build-umd": "mkdir -p dist/umd && BABEL_ENV=development ./node_modules/.bin/browserify -s Metapatcher ./source/index.js -o ./dist/umd/index.js && ./node_modules/.bin/minify ./dist/umd/index.js --out-file ./dist/umd/index.js",
-    "build-umd-polyfilled": "mkdir -p dist/umd-polyfilled && mkdir -p ./source-compiled && BABEL_ENV=production ./node_modules/.bin/babel ./source -d ./source-compiled && ./node_modules/.bin/browserify -s Metapatcher ./source-compiled/index.js -o ./dist/umd-polyfilled/index.js && ./node_modules/.bin/minify ./dist/umd-polyfilled/index.js --out-file ./dist/umd-polyfilled/index.js && rm -rf ./source-compiled",
-    "release": "bash dev/push.sh"
+    "test": "NODE_ENV=test jasmine --config=spec/config/jasmine.json",
+    "build": "USE_POLYFILLS=off rollup --config rollup.config.js && USE_POLYFILLS=on rollup --config rollup.config.js",
+    "gen-babel-report": "node dev/generateBabelPolyfillReport.js",
+    "gen-dist-report": "node dev/generateDistributionReport.js",
+    "commit": "node dev/commit.js commit"
   },
   "repository": {
     "type": "git",
@@ -23,26 +22,38 @@
     "opengraph-tags",
     "jsonld"
   ],
-  "author": "Murat Gözel <murat@gozel.com.tr>",
+  "author": {
+    "name": "Murat Gözel",
+    "email": "murat@gozel.com.tr",
+    "url": "https://gozel.com.tr"
+  },
+  "funding": {
+    "type": "ko-fi",
+    "url": "https://ko-fi.com/muratgozel"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/muratgozel/metapatcher/issues"
   },
   "homepage": "https://github.com/muratgozel/metapatcher#readme",
   "dependencies": {
-    "@basekits/core": "^1.0.0",
-    "@basekits/kit-object": "^1.0.1",
-    "@basekits/kit-type": "^1.0.0",
-    "dom-scripter": "^1.1.0",
-    "event-emitter-object": "^1.0.7"
+    "basekits": "^1.1.0",
+    "dom-scripter": "^2.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "babel-minify": "^0.5.1",
-    "babel-preset-minify": "^0.5.1",
-    "browserify": "^16.5.0",
-    "core-js": "^3.6.4"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-json": "^4.0.3",
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "core-js": "^3.6.5",
+    "jasmine": "^3.5.0",
+    "jsdom": "^16.2.2",
+    "rollup": "^2.6.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-terser": "^5.3.0",
+    "semver": "^7.3.2",
+    "yargs": "^15.3.1"
   }
 }
