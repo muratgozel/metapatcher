@@ -1,9 +1,9 @@
-const Metapatcher = require('../../dist/metapatcher.cjs.js')
+const metapatcher = require('../../dist/metapatcher.cjs.js')
 
 describe('Metapatcher.', function() {
 
   it('Initiation and settings.', function() {
-    const metapatcher = new Metapatcher({
+    metapatcher.configure({
       structuredData: {enabled: false}
     })
     expect(metapatcher.settings.structuredData.enabled).toBe(false)
@@ -11,13 +11,11 @@ describe('Metapatcher.', function() {
   })
 
   it('Finding mime type from file path.', function() {
-    const metapatcher = new Metapatcher()
     expect(metapatcher.findMimeType('/asd/test.ico')).toBe('image/x-icon')
     expect(metapatcher.findMimeType('/asd')).toBeUndefined()
   })
 
   it('Patching custom meta and link tags.', function() {
-    const metapatcher = new Metapatcher()
     const elem = metapatcher.set('meta', 'name', {name: 'number', content: 'One'})
     expect(elem).toEqual(document.querySelector('meta[name="number"]'))
     expect(elem.getAttribute('content')).toEqual('One')
@@ -31,7 +29,6 @@ describe('Metapatcher.', function() {
   })
 
   it('Patching favicon.', function() {
-    const metapatcher = new Metapatcher()
     const elem = metapatcher.setFavicon('/favicon.ico')
     expect(elem).toEqual(document.querySelector('link[rel="shortcut icon"]'))
     expect(elem.getAttribute('rel')).toEqual('shortcut icon')
@@ -40,7 +37,6 @@ describe('Metapatcher.', function() {
   })
 
   it('Patching various tags with setProjectMeta method.', function() {
-    const metapatcher = new Metapatcher()
     metapatcher.setProjectMeta({
       name: 'Sample App',
       url: 'https://frondjs.org',
@@ -56,7 +52,6 @@ describe('Metapatcher.', function() {
   })
 
   it('Patching robots tag.', function() {
-    const metapatcher = new Metapatcher()
     metapatcher.robots('noindex')
     const elem = document.querySelector('meta[name="robots"]')
     expect(elem).toBeTruthy()
@@ -64,7 +59,6 @@ describe('Metapatcher.', function() {
   })
 
   it('Patching prioritization tags.', function() {
-    const metapatcher = new Metapatcher()
     metapatcher.prioritize('https://frondjs.org', 'preconnect')
     metapatcher.prioritize('https://frondjs.org', 'invalidmethod')
     const elem = document.querySelector('meta[name="preconnect"]')
@@ -78,7 +72,6 @@ describe('Metapatcher.', function() {
   })
 
   it('Patching icons across browsers and devices.', function() {
-    const metapatcher = new Metapatcher()
     const icons = [
       '/path/icon-70x70.png',
       '/path/icon-72x72.png',

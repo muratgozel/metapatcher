@@ -14,7 +14,7 @@ npm install metapatcher
 ## Import
 There are different types of distributions depending on your use case. Essentially, the package can be imported via require:
 ```js
-const Metapatcher = require('metapatcher')
+const metapatcher = require('metapatcher')
 ```
 or via script tag:
 ```html
@@ -40,7 +40,7 @@ const settings = {
   twitterTags: {enabled: true},
   facebookTags: {enabled: true}
 }
-const metapatcher = new Metapatcher(settings)
+metapatcher.configure(settings)
 ```
 ### Essential Methods
 ```js
@@ -169,16 +169,16 @@ This is an auto-generated report that shows the type, name and size of the bundl
 [comment]: # (DISTRIBUTIONS_REPORT_START)
 ```js
 [
-  "metapatcher.amd.js (8.75 KB)",
-  "metapatcher.amd.polyfilled.js (29.53 KB)",
-  "metapatcher.cjs.js (8.74 KB)",
-  "metapatcher.cjs.polyfilled.js (29.53 KB)",
-  "metapatcher.es.js (8.26 KB)",
-  "metapatcher.es.polyfilled.js (29.05 KB)",
-  "metapatcher.iife.js (8.75 KB)",
-  "metapatcher.iife.polyfilled.js (29.53 KB)",
-  "metapatcher.umd.js (8.98 KB)",
-  "metapatcher.umd.polyfilled.js (29.76 KB)"
+  "metapatcher.amd.js (8.78 KB)",
+  "metapatcher.amd.polyfilled.js (29.57 KB)",
+  "metapatcher.cjs.js (8.79 KB)",
+  "metapatcher.cjs.polyfilled.js (29.57 KB)",
+  "metapatcher.es.js (8.32 KB)",
+  "metapatcher.es.polyfilled.js (29.11 KB)",
+  "metapatcher.iife.js (8.78 KB)",
+  "metapatcher.iife.polyfilled.js (29.56 KB)",
+  "metapatcher.umd.js (9.01 KB)",
+  "metapatcher.umd.polyfilled.js (29.79 KB)"
 ]
 ```
 [comment]: # (DISTRIBUTIONS_REPORT_END)

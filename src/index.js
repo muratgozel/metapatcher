@@ -1,9 +1,8 @@
 import {typekit, objectkit, validationkit} from 'basekits'
 import scripter from 'dom-scripter'
 
-function Metapatcher(userSettings) {
-  this.settings = {}
-  this.applySettings(userSettings)
+function Metapatcher() {
+  this.configure()
 
   // prevent ms browsers to request browserconfig.xml file on openning
   this.set('meta', 'name', {name: 'msapplication-config', content: 'none'})
@@ -375,7 +374,7 @@ Metapatcher.prototype.patch = function patch(elem) {
   document.getElementsByTagName('head')[0].insertBefore(elem, null)
 }
 
-Metapatcher.prototype.applySettings = function applySettings(userSettings) {
+Metapatcher.prototype.configure = function configure(userSettings = {}) {
   const defaultSettings = this.defaultSettings
   this.settings = Object
     .keys(this.defaultSettings)
@@ -385,4 +384,4 @@ Metapatcher.prototype.applySettings = function applySettings(userSettings) {
     }, {})
 }
 
-export default Metapatcher
+export default new Metapatcher()
