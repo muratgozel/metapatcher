@@ -1,4 +1,4 @@
-const resolve = require('@rollup/plugin-node-resolve')
+const {nodeResolve} = require('@rollup/plugin-node-resolve')
 const commonjs = require('@rollup/plugin-commonjs')
 const babel = require('rollup-plugin-babel')
 const json = require('@rollup/plugin-json')
@@ -44,10 +44,10 @@ module.exports = {
     }
   ],
   plugins: [
-    resolve(),
+    nodeResolve({browser: true}),
     commonjs(),
     babel(),
     json(),
-    terser({sourcemap: false})
+    terser()
   ]
 }

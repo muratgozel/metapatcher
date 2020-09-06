@@ -169,16 +169,16 @@ This is an auto-generated report that shows the type, name and size of the bundl
 [comment]: # (DISTRIBUTIONS_REPORT_START)
 ```js
 [
-  "metapatcher.amd.js (8.78 KB)",
-  "metapatcher.amd.polyfilled.js (29.57 KB)",
-  "metapatcher.cjs.js (8.79 KB)",
-  "metapatcher.cjs.polyfilled.js (29.57 KB)",
-  "metapatcher.es.js (8.32 KB)",
-  "metapatcher.es.polyfilled.js (29.11 KB)",
-  "metapatcher.iife.js (8.78 KB)",
-  "metapatcher.iife.polyfilled.js (29.56 KB)",
-  "metapatcher.umd.js (9.01 KB)",
-  "metapatcher.umd.polyfilled.js (29.79 KB)"
+  "metapatcher.amd.js (9.07 KB)",
+  "metapatcher.amd.polyfilled.js (29.99 KB)",
+  "metapatcher.cjs.js (9.08 KB)",
+  "metapatcher.cjs.polyfilled.js (30.02 KB)",
+  "metapatcher.es.js (8.54 KB)",
+  "metapatcher.es.polyfilled.js (29.49 KB)",
+  "metapatcher.iife.js (9.06 KB)",
+  "metapatcher.iife.polyfilled.js (29.99 KB)",
+  "metapatcher.umd.js (9.34 KB)",
+  "metapatcher.umd.polyfilled.js (30.26 KB)"
 ]
 ```
 [comment]: # (DISTRIBUTIONS_REPORT_END)
@@ -215,14 +215,13 @@ This is an auto-generated report that shows the pollyfils added by core-js to th
 ]
 // based on the targets:
 {
-  "android": "4.4.3",
   "chrome": "49",
   "edge": "18",
   "firefox": "52",
   "ie": "10",
   "ios": "9.3",
-  "opera": "67",
-  "safari": "11.1",
+  "opera": "68",
+  "safari": "5.1",
   "samsung": "4"
 }
 ```
