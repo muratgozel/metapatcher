@@ -79,7 +79,7 @@ Metapatcher.prototype.setProjectMeta = function setProjectMeta(obj) {
         '@type': 'Organization',
         logo: obj.logo,
         url: obj.url
-      }, {'data-mptype': 'sdorg', location: 'headEnd'})
+      }, {'data-mptype': 'sdorg', location: 'headEnd', id: 'metapatcher-project-meta-organization'})
     }
   }
 
@@ -319,7 +319,7 @@ Metapatcher.prototype.setTwitterMeta = function setTwitterMeta(obj) {
     this.set('meta', 'name', {name: 'twitter:creator', content: obj.creator})
 }
 
-Metapatcher.prototype.breadcrumb = function breadcrumb(data) {
+Metapatcher.prototype.breadcrumb = function breadcrumb(data, attrs = {}) {
   if (!this.settings.structuredData.enabled) return this
 
   const o = {
@@ -334,7 +334,7 @@ Metapatcher.prototype.breadcrumb = function breadcrumb(data) {
     })
   }
 
-  scripter.injectJSONLD(o, {'data-mptype': 'sdb', location: 'headEnd'})
+  scripter.injectJSONLD(o, Object.assign({}, {'data-mptype': 'sdb', location: 'headEnd'}, attrs))
 
   return this
 }

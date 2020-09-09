@@ -169,16 +169,16 @@ This is an auto-generated report that shows the type, name and size of the bundl
 [comment]: # (DISTRIBUTIONS_REPORT_START)
 ```js
 [
-  "metapatcher.amd.js (9.16 KB)",
-  "metapatcher.amd.polyfilled.js (30.08 KB)",
-  "metapatcher.cjs.js (9.17 KB)",
-  "metapatcher.cjs.polyfilled.js (30.11 KB)",
-  "metapatcher.es.js (8.62 KB)",
-  "metapatcher.es.polyfilled.js (29.57 KB)",
-  "metapatcher.iife.js (9.15 KB)",
-  "metapatcher.iife.polyfilled.js (30.08 KB)",
-  "metapatcher.umd.js (9.42 KB)",
-  "metapatcher.umd.polyfilled.js (30.35 KB)"
+  "metapatcher.amd.js (9.28 KB)",
+  "metapatcher.amd.polyfilled.js (30.82 KB)",
+  "metapatcher.cjs.js (9.29 KB)",
+  "metapatcher.cjs.polyfilled.js (30.85 KB)",
+  "metapatcher.es.js (8.74 KB)",
+  "metapatcher.es.polyfilled.js (30.30 KB)",
+  "metapatcher.iife.js (9.28 KB)",
+  "metapatcher.iife.polyfilled.js (30.81 KB)",
+  "metapatcher.umd.js (9.55 KB)",
+  "metapatcher.umd.polyfilled.js (31.09 KB)"
 ]
 ```
 [comment]: # (DISTRIBUTIONS_REPORT_END)
@@ -207,6 +207,7 @@ This is an auto-generated report that shows the pollyfils added by core-js to th
   "es.array.reduce",
   "es.array.slice",
   "es.function.name",
+  "es.object.assign",
   "es.object.keys",
   "es.object.values",
   "es.regexp.exec",
