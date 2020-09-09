@@ -263,7 +263,13 @@ Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
   }
 
   if (validationkit.isNotEmpty(obj.localVersions)) {
-    Object.keys(obj.localVersions).map(l => this.setLocalVersion(l, obj.localVersions[l]))
+    Object
+      .keys(obj.localVersions)
+      .map(
+        l => this.setLocalVersion(
+          l, obj.localVersions[l], validationkit.isNotEmpty(obj.locale) && obj.locale == l
+        )
+      )
   }
 
   if (validationkit.isNotEmpty(obj.canonicals)) {

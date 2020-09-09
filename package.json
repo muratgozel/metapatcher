@@ -1,6 +1,6 @@
 {
   "name": "metapatcher",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "HTML document head management including meta tags, social media tags, icons and JSONLD expressions across devices.",
   "main": "dist/metapatcher.cjs.js",
   "scripts": {
