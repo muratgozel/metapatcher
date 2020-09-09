@@ -169,16 +169,16 @@ This is an auto-generated report that shows the type, name and size of the bundl
 [comment]: # (DISTRIBUTIONS_REPORT_START)
 ```js
 [
-  "metapatcher.amd.js (9.12 KB)",
-  "metapatcher.amd.polyfilled.js (30.04 KB)",
-  "metapatcher.cjs.js (9.13 KB)",
-  "metapatcher.cjs.polyfilled.js (30.07 KB)",
-  "metapatcher.es.js (8.58 KB)",
-  "metapatcher.es.polyfilled.js (29.53 KB)",
-  "metapatcher.iife.js (9.11 KB)",
-  "metapatcher.iife.polyfilled.js (30.04 KB)",
-  "metapatcher.umd.js (9.39 KB)",
-  "metapatcher.umd.polyfilled.js (30.31 KB)"
+  "metapatcher.amd.js (9.16 KB)",
+  "metapatcher.amd.polyfilled.js (30.08 KB)",
+  "metapatcher.cjs.js (9.17 KB)",
+  "metapatcher.cjs.polyfilled.js (30.11 KB)",
+  "metapatcher.es.js (8.62 KB)",
+  "metapatcher.es.polyfilled.js (29.57 KB)",
+  "metapatcher.iife.js (9.15 KB)",
+  "metapatcher.iife.polyfilled.js (30.08 KB)",
+  "metapatcher.umd.js (9.42 KB)",
+  "metapatcher.umd.polyfilled.js (30.35 KB)"
 ]
 ```
 [comment]: # (DISTRIBUTIONS_REPORT_END)

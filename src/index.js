@@ -79,7 +79,7 @@ Metapatcher.prototype.setProjectMeta = function setProjectMeta(obj) {
         '@type': 'Organization',
         logo: obj.logo,
         url: obj.url
-      }, {'data-mptype': 'sdorg'})
+      }, {'data-mptype': 'sdorg', location: 'headEnd'})
     }
   }
 
@@ -334,7 +334,7 @@ Metapatcher.prototype.breadcrumb = function breadcrumb(data) {
     })
   }
 
-  scripter.injectJSONLD(o, {'data-mptype': 'sdb'})
+  scripter.injectJSONLD(o, {'data-mptype': 'sdb', location: 'headEnd'})
 
   return this
 }
