@@ -19,7 +19,7 @@ const metapatcher = require('metapatcher')
 or via script tag:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/basekits@1/dist/basekits.iife.js" crossorigin type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/dom-scripter@2/dist/dom-scripter.iife.js" crossorigin type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/dom-scripter@3/dist/dom-scripter.iife.js" crossorigin type="text/javascript"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/metapatcher@1/dist/metapatcher.iife.js" crossorigin type="text/javascript"></script>
 ```
@@ -170,15 +170,15 @@ This is an auto-generated report that shows the type, name and size of the bundl
 ```js
 [
   "metapatcher.amd.js (9.28 KB)",
-  "metapatcher.amd.polyfilled.js (30.82 KB)",
+  "metapatcher.amd.polyfilled.js (30.87 KB)",
   "metapatcher.cjs.js (9.29 KB)",
-  "metapatcher.cjs.polyfilled.js (30.85 KB)",
-  "metapatcher.es.js (8.74 KB)",
-  "metapatcher.es.polyfilled.js (30.30 KB)",
+  "metapatcher.cjs.polyfilled.js (30.90 KB)",
+  "metapatcher.es.js (8.76 KB)",
+  "metapatcher.es.polyfilled.js (30.36 KB)",
   "metapatcher.iife.js (9.28 KB)",
-  "metapatcher.iife.polyfilled.js (30.81 KB)",
+  "metapatcher.iife.polyfilled.js (30.87 KB)",
   "metapatcher.umd.js (9.55 KB)",
-  "metapatcher.umd.polyfilled.js (31.09 KB)"
+  "metapatcher.umd.polyfilled.js (31.14 KB)"
 ]
 ```
 [comment]: # (DISTRIBUTIONS_REPORT_END)
@@ -190,17 +190,10 @@ This is an auto-generated report that shows the pollyfils added by core-js to th
 ```js
 // polyfills:
 [
-  "es.symbol",
-  "es.symbol.description",
-  "es.symbol.iterator",
-  "es.array.iterator",
   "es.object.get-prototype-of",
   "es.object.set-prototype-of",
-  "es.object.to-string",
-  "es.reflect.construct",
-  "es.regexp.to-string",
-  "es.string.iterator",
-  "web.dom-collections.iterator",
+  "es.symbol",
+  "es.symbol.description",
   "es.array.index-of",
   "es.array.last-index-of",
   "es.array.map",
@@ -218,15 +211,17 @@ This is an auto-generated report that shows the pollyfils added by core-js to th
 {
   "chrome": "49",
   "edge": "18",
-  "firefox": "52",
+  "firefox": "78",
   "ie": "10",
   "ios": "9.3",
-  "opera": "68",
+  "opera": "71",
   "safari": "5.1",
   "samsung": "4"
 }
 ```
 [comment]: # (BABEL_POLYFILLS_REPORT_END)
+
+---
 
 Thanks for watching 🐬
 

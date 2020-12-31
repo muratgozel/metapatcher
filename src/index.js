@@ -1,5 +1,7 @@
 import {typekit, objectkit, validationkit} from 'basekits'
-import scripter from 'dom-scripter'
+import DOMScripter from 'dom-scripter'
+
+const scripter = DOMScripter.create()
 
 function Metapatcher() {
   this.configure()
@@ -75,7 +77,7 @@ Metapatcher.prototype.setProjectMeta = function setProjectMeta(obj) {
 
   if (validationkit.isNotEmpty(obj.logo)) {
     if (this.settings.structuredData.enabled) {
-      scripter.injectJSONLD({
+      scripter.injectjsonld({
         '@type': 'Organization',
         logo: obj.logo,
         url: obj.url
@@ -334,7 +336,7 @@ Metapatcher.prototype.breadcrumb = function breadcrumb(data, attrs = {}) {
     })
   }
 
-  scripter.injectJSONLD(o, Object.assign({}, {'data-mptype': 'sdb', location: 'headEnd'}, attrs))
+  scripter.injectjsonld(o, Object.assign({}, {'data-mptype': 'sdb', location: 'headEnd'}, attrs))
 
   return this
 }

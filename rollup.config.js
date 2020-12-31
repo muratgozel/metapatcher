@@ -13,33 +13,38 @@ module.exports = {
   input: 'src/index.js',
   output: [
     {
+      exports: 'default',
       format: 'amd',
       file: 'dist/metapatcher.amd' + suffix + '.js'
     },
     {
+      exports: 'default',
       format: 'cjs',
       file: 'dist/metapatcher.cjs' + suffix + '.js'
     },
     {
+      exports: 'default',
       format: 'es',
       file: 'dist/metapatcher.es' + suffix + '.js'
     },
     {
+      exports: 'default',
       format: 'iife',
       file: 'dist/metapatcher.iife' + suffix + '.js',
       name: 'Metapatcher',
       globals: {
         'basekits': 'Basekits',
-        'dom-scripter': 'Scripter'
+        'dom-scripter': 'DOMScripter'
       }
     },
     {
+      exports: 'default',
       format: 'umd',
       file: 'dist/metapatcher.umd' + suffix + '.js',
       name: 'Metapatcher',
       globals: {
         'basekits': 'Basekits',
-        'dom-scripter': 'Scripter'
+        'dom-scripter': 'DOMScripter'
       }
     }
   ],
