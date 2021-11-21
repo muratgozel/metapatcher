@@ -1,3 +1,1 @@
-> 0.1%
-ie 10
-not ie 9
+defaults, > 0.1%, ie 10 and not ie 9

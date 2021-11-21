@@ -14,7 +14,7 @@ const doc = `
 </body>
 </html>
 `
-global.window = new JSDOM(doc, {url: 'https://frondjs.org'}).window
+global.window = new JSDOM(doc, {url: 'https://google.com'}).window
 global.document = global.window.document
 global.navigator = global.window.navigator
 //window.fetch = () => {json: () => ''}

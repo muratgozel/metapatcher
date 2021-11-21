@@ -1,7 +1,6 @@
-import {typekit, objectkit, validationkit} from 'basekits'
-import DOMScripter from 'dom-scripter'
+import {DomScripter} from 'dom-scripter'
 
-const scripter = DOMScripter.create()
+const scripter = new DomScripter()
 
 function Metapatcher() {
   this.configure()
@@ -50,14 +49,14 @@ Metapatcher.prototype.reImageSizeFromStr = /[0-9]{2,3}x[0-9]{2,3}/g
 
 Metapatcher.prototype.setFavicon = function setFavicon(path) {
   const mime = this.findMimeType(path)
-  if (validationkit.isEmpty(mime)) return undefined
+  if (!mime) return undefined
   return this.set('link', 'rel', {rel: 'shortcut icon', href: path, type: mime})
 }
 
 Metapatcher.prototype.setProjectMeta = function setProjectMeta(obj) {
-  if (validationkit.isEmpty(obj)) return undefined
+  if (!this.isObject(obj)) return undefined
 
-  if (validationkit.isNotEmpty(obj.name)) {
+  if (obj.name) {
     if (this.settings.msTags.enabled) {
       this.set('meta', 'name', {name: 'application-name', content: obj.name})
     }
@@ -69,13 +68,13 @@ Metapatcher.prototype.setProjectMeta = function setProjectMeta(obj) {
     }
   }
 
-  if (validationkit.isNotEmpty(obj.url)) {
+  if (obj.url) {
     if (this.settings.msTags.enabled) {
       this.set('meta', 'name', {name: 'msapplication-starturl', content: obj.url})
     }
   }
 
-  if (validationkit.isNotEmpty(obj.logo)) {
+  if (obj.logo) {
     if (this.settings.structuredData.enabled) {
       scripter.injectjsonld({
         '@type': 'Organization',
@@ -85,11 +84,11 @@ Metapatcher.prototype.setProjectMeta = function setProjectMeta(obj) {
     }
   }
 
-  if (validationkit.isNotEmpty(obj.primaryColor)) {
+  if (obj.primaryColor) {
     this.set('meta', 'name', {name: 'theme-color', content: obj.primaryColor})
   }
 
-  if (validationkit.isNotEmpty(obj.backgroundColor)) {
+  if (obj.backgroundColor) {
     if (this.settings.msTags.enabled) {
       this.set('meta', 'name', {name: 'msapplication-TileColor', content: obj.backgroundColor})
     }
@@ -111,7 +110,7 @@ Metapatcher.prototype.removeAllPrioritizations = function removeAllPrioritizatio
   for (var i = 0; i < this.prioritizeMethods.length; i++) {
     const method = this.prioritizeMethods[i]
     const elems = document.querySelectorAll('meta[name="' + method + '"]')
-    if (validationkit.isNotEmpty(elems)) {
+    if (elems && elems.length > 0) {
       for (let i = 0; i < elems.length; i++) {
         elems[i].parentNode.removeChild(elems[i])
       }
@@ -159,7 +158,7 @@ Metapatcher.prototype.setCanonical = function setCanonical(url) {
 // and remove all at once
 Metapatcher.prototype.removeAllCanonicals = function removeAllCanonicals() {
   const elems = document.querySelectorAll('link[rel="canonical"]')
-  if (validationkit.isNotEmpty(elems)) {
+  if (elems && elems.length > 0) {
     for (let i = 0; i < elems.length; i++) {
       elems[i].parentNode.removeChild(elems[i])
     }
@@ -181,7 +180,7 @@ Metapatcher.prototype.setLocalVersion = function setLocalVersion(locale, url, is
 // and remove all at once
 Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions() {
   const elems = document.querySelectorAll('link[rel="alternate"]')
-  if (validationkit.isNotEmpty(elems)) {
+  if (elems && elems.length > 0) {
     for (let i = 0; i < elems.length; i++) {
       elems2[i].parentNode.removeChild(elems2[i])
     }
@@ -189,14 +188,14 @@ Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions()
 
   if (this.settings.openGraphTags.enabled) {
     const elems2 = document.querySelectorAll('meta[property="og:locale:alternate"]')
-    if (validationkit.isNotEmpty(elems2)) {
+    if (elems2 && elems2.length > 0) {
       for (let j = 0; j < elems2.length; j++) {
         elems2[j].parentNode.removeChild(elems2[j])
       }
     }
 
     const elem = document.querySelector('meta[property="og:locale"]')
-    if (validationkit.isNotEmpty(elem)) {
+    if (elem) {
       elem.parentNode.removeChild(elem)
     }
   }
@@ -205,9 +204,9 @@ Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions()
 }
 
 Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
-  if (validationkit.isEmpty(obj)) return this
+  if (!this.isObject(obj)) return this
 
-  if (validationkit.isNotEmpty(obj.title)) {
+  if (obj.title) {
     document.title = obj.title
 
     if (this.settings.openGraphTags.enabled) {
@@ -219,7 +218,7 @@ Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
     }
   }
 
-  if (validationkit.isNotEmpty(obj.description)) {
+  if (obj.description) {
     this.set('meta', 'name', {name: 'description', content: obj.description})
 
     if (this.settings.openGraphTags.enabled) {
@@ -231,22 +230,22 @@ Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
     }
   }
 
-  if (validationkit.isNotEmpty(obj.url)) {
+  if (obj.url) {
     if (this.settings.openGraphTags.enabled) {
       this.set('meta', 'property', {property: 'og:url', content: obj.url})
     }
   }
 
-  if (validationkit.isNotEmpty(obj.image)) {
+  if (obj.image) {
     const imgobj = this.formatImageInput(obj.image)
     if (this.settings.openGraphTags.enabled) {
       this.set('meta', 'property', {property: 'og:image', content: imgobj.url})
 
-      if (validationkit.isNotEmpty(imgobj.width)) {
+      if (imgobj.width) {
         this.set('meta', 'property', {property: 'og:image:width', content: imgobj.width})
       }
 
-      if (validationkit.isNotEmpty(imgobj.height)) {
+      if (imgobj.height) {
         this.set('meta', 'property', {property: 'og:image:height', content: imgobj.height})
       }
     }
@@ -256,7 +255,7 @@ Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
     }
   }
 
-  if (validationkit.isNotEmpty(obj.locale)) {
+  if (obj.locale) {
     document.querySelector('html').setAttribute('lang', obj.locale)
 
     if (this.settings.openGraphTags.enabled) {
@@ -264,17 +263,17 @@ Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
     }
   }
 
-  if (validationkit.isNotEmpty(obj.localVersions)) {
+  if (obj.localVersions) {
     Object
       .keys(obj.localVersions)
       .map(
         l => this.setLocalVersion(
-          l, obj.localVersions[l], validationkit.isNotEmpty(obj.locale) && obj.locale == l
+          l, obj.localVersions[l], obj.locale && obj.locale == l
         )
       )
   }
 
-  if (validationkit.isNotEmpty(obj.canonicals)) {
+  if (obj.canonicals) {
     obj.canonicals.map(u => this.setCanonical(u))
   }
 
@@ -286,11 +285,11 @@ Metapatcher.prototype.setSafariMobileWebApp = function setSafariMobileWebApp(obj
 
   this.set('meta', 'name', {name: 'apple-mobile-web-app-capable', content: 'yes'})
 
-  if (validationkit.isNotEmpty(obj.name)) {
+  if (obj.name) {
     this.set('meta', 'name', {name: 'apple-mobile-web-app-title', content: obj.name})
   }
 
-  if (validationkit.isNotEmpty(obj.statusBarStyle)) {
+  if (obj.statusBarStyle) {
     this.set('meta', 'name', {name: 'apple-mobile-web-app-status-bar-style', content: obj.statusBarStyle})
   }
 
@@ -302,7 +301,7 @@ Metapatcher.prototype.setSafariPinnedTab = function setSafariPinnedTab(url, colo
 }
 
 Metapatcher.prototype.setFacebookMeta = function setFacebookMeta(obj) {
-  if (validationkit.isNotEmpty(obj.appID)) {
+  if (obj.appID) {
     this.set('meta', 'property', {property: 'fb:app_id', content: obj.appID})
   }
   return this
@@ -311,13 +310,13 @@ Metapatcher.prototype.setFacebookMeta = function setFacebookMeta(obj) {
 Metapatcher.prototype.setTwitterMeta = function setTwitterMeta(obj) {
   if (!this.settings.twitterTags.enabled) return this
 
-  if (validationkit.isNotEmpty(obj.card))
+  if (obj.card)
     this.set('meta', 'name', {name: 'twitter:card', content: obj.card})
 
-  if (validationkit.isNotEmpty(obj.site))
+  if (obj.site)
     this.set('meta', 'name', {name: 'twitter:site', content: obj.site})
 
-  if (validationkit.isNotEmpty(obj.creator))
+  if (obj.creator)
     this.set('meta', 'name', {name: 'twitter:creator', content: obj.creator})
 }
 
@@ -342,8 +341,8 @@ Metapatcher.prototype.breadcrumb = function breadcrumb(data, attrs = {}) {
 }
 
 Metapatcher.prototype.formatImageInput = function formatImageInput(input) {
-  if (typekit.isString(input)) return {url: input}
-  else if (typekit.isObject(input)) return {
+  if (typeof input == 'string') return {url: input}
+  else if (this.isObject(input)) return {
     url: input.url,
     width: input.width,
     height: input.height
@@ -356,13 +355,13 @@ Metapatcher.prototype.findMimeType = function findMimeType(path) {
   if (lastind < 1) return undefined
 
   const ext = path.slice(lastind + 1)
-  if (validationkit.isEmpty(ext)) return undefined
+  if (!ext) return undefined
 
-  return objectkit.getProp(this.mimeTypesByExtension, ext, undefined)
+  return this.mimeTypesByExtension[ext] || undefined
 }
 
 Metapatcher.prototype.set = function set(tag, id, attrs = {}) {
-  if (validationkit.isNotEmpty(id)) {
+  if (id) {
     const alreadyExist = this.hasElement(tag + '[' + id + '="' + attrs[id] + '"]')
     if (alreadyExist) alreadyExist.parentNode.removeChild(alreadyExist)
   }
@@ -380,7 +379,7 @@ Metapatcher.prototype.hasElement = function hasElement(query) {
 
 Metapatcher.prototype.createElement = function createElement(tag, attrs) {
   const elem = document.createElement(tag)
-  if (typekit.isObject(attrs)) {
+  if (this.isObject(attrs)) {
     Object.keys(attrs).map(attr => elem.setAttribute(attr, attrs[attr]))
   }
   return elem
@@ -395,9 +394,13 @@ Metapatcher.prototype.configure = function configure(userSettings = {}) {
   this.settings = Object
     .keys(this.defaultSettings)
     .reduce(function(memo, name) {
-      memo[name] = objectkit.getProp(userSettings, name, objectkit.getProp(defaultSettings, name, {}))
+      memo[name] = userSettings[name] || (defaultSettings[name] || {})
       return memo
     }, {})
+}
+
+Metapatcher.prototype.isObject = function isObject(v) {
+  return Object.prototype.toString.call(v) === '[object Object]'
 }
 
 export default new Metapatcher()

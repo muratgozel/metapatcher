@@ -1,5 +1,5 @@
 # metapatcher
-HTML document head management tool with declarative api. Inject/remove meta tags, icons, social media tags, JSONLD expressions and many more.
+Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions.
 
 ![NPM](https://img.shields.io/npm/l/metapatcher)
 [![npm version](https://badge.fury.io/js/metapatcher.svg)](https://badge.fury.io/js/metapatcher)
@@ -12,21 +12,20 @@ npm install metapatcher
 ```
 
 ## Import
-There are different types of distributions depending on your use case. Essentially, the package can be imported via require:
+Require or import:
 ```js
 const metapatcher = require('metapatcher')
+// or
+import metapatcher from 'metapatcher'
 ```
-or via script tag:
+Or inject via `<script>` tag:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/basekits@1/dist/basekits.iife.js" crossorigin type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/dom-scripter@3/dist/dom-scripter.iife.js" crossorigin type="text/javascript"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/metapatcher@1/dist/metapatcher.iife.js" crossorigin type="text/javascript"></script>
 ```
-but there are lots of other options. See distribution report below.
+Accessible at `window.metapatcher`.
 
-## Use
-### Init
+## Usage
+### Configure
 Apply settings upon initiation:
 ```js
 // these are default settings
@@ -163,63 +162,7 @@ metapatcher.setTwitterMeta({
 
 ---
 
-## Distributions Report
-This is an auto-generated report that shows the type, name and size of the bundles available to use individually.
-
-[comment]: # (DISTRIBUTIONS_REPORT_START)
-```js
-[
-  "metapatcher.amd.js (9.28 KB)",
-  "metapatcher.amd.polyfilled.js (30.87 KB)",
-  "metapatcher.cjs.js (9.29 KB)",
-  "metapatcher.cjs.polyfilled.js (30.90 KB)",
-  "metapatcher.es.js (8.76 KB)",
-  "metapatcher.es.polyfilled.js (30.36 KB)",
-  "metapatcher.iife.js (9.28 KB)",
-  "metapatcher.iife.polyfilled.js (30.87 KB)",
-  "metapatcher.umd.js (9.55 KB)",
-  "metapatcher.umd.polyfilled.js (31.14 KB)"
-]
-```
-[comment]: # (DISTRIBUTIONS_REPORT_END)
-
-## Babel Polyfills Report
-This is an auto-generated report that shows the pollyfils added by core-js to the **pollyfilled** distributions based on the targets configuration described below.
-
-[comment]: # (BABEL_POLYFILLS_REPORT_START)
-```js
-// polyfills:
-[
-  "es.object.get-prototype-of",
-  "es.object.set-prototype-of",
-  "es.symbol",
-  "es.symbol.description",
-  "es.array.index-of",
-  "es.array.last-index-of",
-  "es.array.map",
-  "es.array.reduce",
-  "es.array.slice",
-  "es.function.name",
-  "es.object.assign",
-  "es.object.keys",
-  "es.object.values",
-  "es.regexp.exec",
-  "es.string.match",
-  "es.string.replace"
-]
-// based on the targets:
-{
-  "chrome": "49",
-  "edge": "18",
-  "firefox": "78",
-  "ie": "10",
-  "ios": "9.3",
-  "opera": "71",
-  "safari": "5.1",
-  "samsung": "4"
-}
-```
-[comment]: # (BABEL_POLYFILLS_REPORT_END)
+Version management of this repository done by [releaser](https://github.com/muratgozel/node-releaser) 🚀
 
 ---
 

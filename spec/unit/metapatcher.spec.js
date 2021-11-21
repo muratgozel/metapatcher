@@ -1,4 +1,4 @@
-const metapatcher = require('../../dist/metapatcher.cjs.js')
+const metapatcher = require('../../dist/browser/cjs')
 
 describe('Metapatcher.', function() {
 
