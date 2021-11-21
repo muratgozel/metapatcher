@@ -20,7 +20,7 @@ import metapatcher from 'metapatcher'
 ```
 Or inject via `<script>` tag:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/metapatcher@1/dist/metapatcher.iife.js" crossorigin type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/metapatcher@2/dist/metapatcher.iife.js" crossorigin type="text/javascript"></script>
 ```
 Accessible at `window.metapatcher`.
 

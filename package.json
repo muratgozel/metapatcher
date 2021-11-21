@@ -1,6 +1,6 @@
 {
   "name": "metapatcher",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions.",
   "main": "./dist/browser/cjs/index.js",
   "module": "./dist/browser/es/index.js",
