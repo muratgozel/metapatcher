@@ -268,7 +268,7 @@ Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions()
 
   if (elems && elems.length > 0) {
     for (var i = 0; i < elems.length; i++) {
-      elems2[i].parentNode.removeChild(elems2[i]);
+      elems[i].parentNode.removeChild(elems2[i]);
     }
   }
 
