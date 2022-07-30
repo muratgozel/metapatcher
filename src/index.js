@@ -182,7 +182,7 @@ Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions()
   const elems = document.querySelectorAll('link[rel="alternate"]')
   if (elems && elems.length > 0) {
     for (let i = 0; i < elems.length; i++) {
-      elems[i].parentNode.removeChild(elems2[i])
+      elems[i].parentNode.removeChild(elems[i])
     }
   }
 

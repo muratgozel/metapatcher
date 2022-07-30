@@ -268,16 +268,16 @@ Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions()
 
   if (elems && elems.length > 0) {
     for (var i = 0; i < elems.length; i++) {
-      elems[i].parentNode.removeChild(elems2[i]);
+      elems[i].parentNode.removeChild(elems[i]);
     }
   }
 
   if (this.settings.openGraphTags.enabled) {
-    var _elems = document.querySelectorAll('meta[property="og:locale:alternate"]');
+    var elems2 = document.querySelectorAll('meta[property="og:locale:alternate"]');
 
-    if (_elems && _elems.length > 0) {
-      for (var j = 0; j < _elems.length; j++) {
-        _elems[j].parentNode.removeChild(_elems[j]);
+    if (elems2 && elems2.length > 0) {
+      for (var j = 0; j < elems2.length; j++) {
+        elems2[j].parentNode.removeChild(elems2[j]);
       }
     }
 
