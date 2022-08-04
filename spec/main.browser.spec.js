@@ -1,6 +1,6 @@
-const metapatcher = require('../../dist/browser/cjs')
+const metapatcher = require('../dist/browser/cjs')
 
-describe('Metapatcher.', function() {
+describe('Metapatcher browser env', function() {
 
   it('Initiation and settings.', function() {
     metapatcher.configure({

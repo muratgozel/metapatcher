@@ -3,6 +3,9 @@ import {DomScripter} from 'dom-scripter'
 const scripter = new DomScripter()
 
 function Metapatcher() {
+  this.isDomAvailable = typeof document !== 'undefined'
+  this.headData = []
+
   this.configure()
 
   // prevent ms browsers to request browserconfig.xml file on openning
@@ -76,11 +79,18 @@ Metapatcher.prototype.setProjectMeta = function setProjectMeta(obj) {
 
   if (obj.logo) {
     if (this.settings.structuredData.enabled) {
-      scripter.injectjsonld({
+      const logoJsonLdId = 'metapatcher-project-meta-organization'
+      const logoJsonLd = {
         '@type': 'Organization',
         logo: obj.logo,
         url: obj.url
-      }, {'data-mptype': 'sdorg', location: 'headEnd', id: 'metapatcher-project-meta-organization'})
+      }
+      if (!this.isDomAvailable) {
+        this.headData.push(`<script type="application/ld+json" id="${logoJsonLdId}">${JSON.stringify(logoJsonLd)}</script>`)
+      }
+      else {
+        scripter.injectjsonld(logoJsonLd, {location: 'headEnd', id: logoJsonLdId})
+      }
     }
   }
 
@@ -107,6 +117,8 @@ Metapatcher.prototype.prioritize = function prioritize(url, method) {
 }
 
 Metapatcher.prototype.removeAllPrioritizations = function removeAllPrioritizations() {
+  if (!this.isDomAvailable) return this;
+
   for (var i = 0; i < this.prioritizeMethods.length; i++) {
     const method = this.prioritizeMethods[i]
     const elems = document.querySelectorAll('meta[name="' + method + '"]')
@@ -157,12 +169,15 @@ Metapatcher.prototype.setCanonical = function setCanonical(url) {
 }
 // and remove all at once
 Metapatcher.prototype.removeAllCanonicals = function removeAllCanonicals() {
+  if (!this.isDomAvailable) return this;
+
   const elems = document.querySelectorAll('link[rel="canonical"]')
   if (elems && elems.length > 0) {
     for (let i = 0; i < elems.length; i++) {
       elems[i].parentNode.removeChild(elems[i])
     }
   }
+
   return this
 }
 
@@ -179,6 +194,8 @@ Metapatcher.prototype.setLocalVersion = function setLocalVersion(locale, url, is
 }
 // and remove all at once
 Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions() {
+  if (!this.isDomAvailable) return this;
+
   const elems = document.querySelectorAll('link[rel="alternate"]')
   if (elems && elems.length > 0) {
     for (let i = 0; i < elems.length; i++) {
@@ -203,11 +220,16 @@ Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions()
   return this
 }
 
+Metapatcher.prototype.setPageTitle = function setPageTitle(value) {
+  if (!this.isDomAvailable) this.headData.push(`<title>${value}</title>`)
+  else document.title = value
+}
+
 Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
   if (!this.isObject(obj)) return this
 
   if (obj.title) {
-    document.title = obj.title
+    this.setPageTitle(obj.title)
 
     if (this.settings.openGraphTags.enabled) {
       this.set('meta', 'property', {property: 'og:title', content: obj.title})
@@ -256,7 +278,9 @@ Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
   }
 
   if (obj.locale) {
-    document.querySelector('html').setAttribute('lang', obj.locale)
+    if (!this.isDomAvailable) {
+      document.querySelector('html').setAttribute('lang', obj.locale)
+    }
 
     if (this.settings.openGraphTags.enabled) {
       this.set('meta', 'property', {property: 'og:locale', content: obj.locale.replace('-', '_')})
@@ -335,13 +359,22 @@ Metapatcher.prototype.breadcrumb = function breadcrumb(data, attrs = {}) {
     })
   }
 
-  scripter.injectjsonld(o, Object.assign({}, {'data-mptype': 'sdb', location: 'headEnd'}, attrs))
+  if (!this.isDomAvailable) {
+    this.headData.push(`<script type="application/ld+json"${this.isObject(attrs)
+      ? ' ' + Object.keys(attrs).map(attr => `${attr}="${attrs[attr]}"`).join(' ')
+      : ''}>${JSON.stringify(o)}</script>`)
+  }
+  else {
+    scripter.injectjsonld(o, {location: 'headEnd', attrs: attrs})
+  }
 
   return this
 }
 
 Metapatcher.prototype.formatImageInput = function formatImageInput(input) {
-  if (typeof input == 'string') return {url: input}
+  if (typeof input == 'string') return {
+    url: input
+  }
   else if (this.isObject(input)) return {
     url: input.url,
     width: input.width,
@@ -361,6 +394,14 @@ Metapatcher.prototype.findMimeType = function findMimeType(path) {
 }
 
 Metapatcher.prototype.set = function set(tag, id, attrs = {}) {
+  if (!this.isDomAvailable) {
+    const html = `<${tag}${id ? ' id="' + id + '"' : ''}${this.isObject(attrs)
+      ? ' ' + Object.keys(attrs).map(attr => `${attr}="${attrs[attr]}"`).join(' ')
+      : ''}>`
+    this.headData.push(html)
+    return html;
+  }
+
   if (id) {
     const alreadyExist = this.hasElement(tag + '[' + id + '="' + attrs[id] + '"]')
     if (alreadyExist) alreadyExist.parentNode.removeChild(alreadyExist)
@@ -387,6 +428,12 @@ Metapatcher.prototype.createElement = function createElement(tag, attrs) {
 
 Metapatcher.prototype.patch = function patch(elem) {
   document.getElementsByTagName('head')[0].insertBefore(elem, null)
+}
+
+Metapatcher.prototype.dump = function dump() {
+  const data = this.headData.join("\n")
+  this.headData = []
+  return data
 }
 
 Metapatcher.prototype.configure = function configure(userSettings = {}) {

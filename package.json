@@ -1,6 +1,6 @@
 {
   "name": "metapatcher",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions.",
   "main": "./dist/browser/cjs/index.js",
   "module": "./dist/browser/es/index.js",
@@ -15,7 +15,7 @@
     }
   },
   "scripts": {
-    "test": "NODE_ENV=test jasmine --config=spec/config/jasmine.json",
+    "test": "NODE_ENV=test jasmine --config=spec/config/browser.json && jasmine --config=spec/config/node.json",
     "build": "rollup --config rollup.config.js"
   },
   "repository": {

@@ -1,5 +1,5 @@
 # metapatcher
-Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions.
+Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions. Now its compatible with server environments!
 
 ![NPM](https://img.shields.io/npm/l/metapatcher)
 [![npm version](https://badge.fury.io/js/metapatcher.svg)](https://badge.fury.io/js/metapatcher)
@@ -158,6 +158,22 @@ metapatcher.setTwitterMeta({
   site: '@twitter',
   creator: '@muratgozel'
 })
+```
+
+### Server Environment Compatibility
+On server env, where `window` and `document` not available, the module creates string versions of html tags so you can create the html document by using the `dump` method:
+```js
+const html1 = metapatcher.set('meta', 'name', {name: 'number', content: 'One'})
+const html2 = metapatcher.set('meta', undefined, {name: 'names', content: 'One'})
+const html3 = metapatcher.set('meta', undefined, {name: 'names', content: 'Two'})
+
+const dump = metapatcher.dump()
+/*
+<meta id="name" name="msapplication-config" content="none">
+<meta id="name" name="number" content="One">
+<meta name="names" content="One">
+<meta name="names" content="Two">
+ */
 ```
 
 ---

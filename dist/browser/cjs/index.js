@@ -1,10 +1,11 @@
 'use strict';
 
+var _JSON$stringify = require('@babel/runtime-corejs3/core-js/json/stringify');
 var _indexOfInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/index-of');
 var _Object$values = require('@babel/runtime-corejs3/core-js/object/values');
 var _mapInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/map');
 var _Object$keys = require('@babel/runtime-corejs3/core-js/object/keys');
-var _Object$assign = require('@babel/runtime-corejs3/core-js/object/assign');
+var _concatInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/concat');
 var _lastIndexOfInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/last-index-of');
 var _sliceInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/slice');
 var _reduceInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/reduce');
@@ -12,11 +13,12 @@ var domScripter = require('dom-scripter');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+var _JSON$stringify__default = /*#__PURE__*/_interopDefaultLegacy(_JSON$stringify);
 var _indexOfInstanceProperty__default = /*#__PURE__*/_interopDefaultLegacy(_indexOfInstanceProperty);
 var _Object$values__default = /*#__PURE__*/_interopDefaultLegacy(_Object$values);
 var _mapInstanceProperty__default = /*#__PURE__*/_interopDefaultLegacy(_mapInstanceProperty);
 var _Object$keys__default = /*#__PURE__*/_interopDefaultLegacy(_Object$keys);
-var _Object$assign__default = /*#__PURE__*/_interopDefaultLegacy(_Object$assign);
+var _concatInstanceProperty__default = /*#__PURE__*/_interopDefaultLegacy(_concatInstanceProperty);
 var _lastIndexOfInstanceProperty__default = /*#__PURE__*/_interopDefaultLegacy(_lastIndexOfInstanceProperty);
 var _sliceInstanceProperty__default = /*#__PURE__*/_interopDefaultLegacy(_sliceInstanceProperty);
 var _reduceInstanceProperty__default = /*#__PURE__*/_interopDefaultLegacy(_reduceInstanceProperty);
@@ -24,6 +26,8 @@ var _reduceInstanceProperty__default = /*#__PURE__*/_interopDefaultLegacy(_reduc
 var scripter = new domScripter.DomScripter();
 
 function Metapatcher() {
+  this.isDomAvailable = typeof document !== 'undefined';
+  this.headData = [];
   this.configure(); // prevent ms browsers to request browserconfig.xml file on openning
 
   this.set('meta', 'name', {
@@ -126,15 +130,21 @@ Metapatcher.prototype.setProjectMeta = function setProjectMeta(obj) {
 
   if (obj.logo) {
     if (this.settings.structuredData.enabled) {
-      scripter.injectjsonld({
+      var logoJsonLdId = 'metapatcher-project-meta-organization';
+      var logoJsonLd = {
         '@type': 'Organization',
         logo: obj.logo,
         url: obj.url
-      }, {
-        'data-mptype': 'sdorg',
-        location: 'headEnd',
-        id: 'metapatcher-project-meta-organization'
-      });
+      };
+
+      if (!this.isDomAvailable) {
+        this.headData.push("<script type=\"application/ld+json\" id=\"".concat(logoJsonLdId, "\">").concat(_JSON$stringify__default["default"](logoJsonLd), "</script>"));
+      } else {
+        scripter.injectjsonld(logoJsonLd, {
+          location: 'headEnd',
+          id: logoJsonLdId
+        });
+      }
     }
   }
 
@@ -175,6 +185,8 @@ Metapatcher.prototype.prioritize = function prioritize(url, method) {
 };
 
 Metapatcher.prototype.removeAllPrioritizations = function removeAllPrioritizations() {
+  if (!this.isDomAvailable) return this;
+
   for (var i = 0; i < this.prioritizeMethods.length; i++) {
     var method = this.prioritizeMethods[i];
     var elems = document.querySelectorAll('meta[name="' + method + '"]');
@@ -244,6 +256,7 @@ Metapatcher.prototype.setCanonical = function setCanonical(url) {
 
 
 Metapatcher.prototype.removeAllCanonicals = function removeAllCanonicals() {
+  if (!this.isDomAvailable) return this;
   var elems = document.querySelectorAll('link[rel="canonical"]');
 
   if (elems && elems.length > 0) {
@@ -277,6 +290,7 @@ Metapatcher.prototype.setLocalVersion = function setLocalVersion(locale, url) {
 
 
 Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions() {
+  if (!this.isDomAvailable) return this;
   var elems = document.querySelectorAll('link[rel="alternate"]');
 
   if (elems && elems.length > 0) {
@@ -304,13 +318,17 @@ Metapatcher.prototype.removeAllLocalVersions = function removeAllLocalVersions()
   return this;
 };
 
+Metapatcher.prototype.setPageTitle = function setPageTitle(value) {
+  if (!this.isDomAvailable) this.headData.push("<title>".concat(value, "</title>"));else document.title = value;
+};
+
 Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
   var _this = this;
 
   if (!this.isObject(obj)) return this;
 
   if (obj.title) {
-    document.title = obj.title;
+    this.setPageTitle(obj.title);
 
     if (this.settings.openGraphTags.enabled) {
       this.set('meta', 'property', {
@@ -390,7 +408,9 @@ Metapatcher.prototype.setPageMeta = function setPageMeta(obj) {
   }
 
   if (obj.locale) {
-    document.querySelector('html').setAttribute('lang', obj.locale);
+    if (!this.isDomAvailable) {
+      document.querySelector('html').setAttribute('lang', obj.locale);
+    }
 
     if (this.settings.openGraphTags.enabled) {
       this.set('meta', 'property', {
@@ -492,10 +512,22 @@ Metapatcher.prototype.breadcrumb = function breadcrumb(data) {
       };
     })
   };
-  scripter.injectjsonld(o, _Object$assign__default["default"]({}, {
-    'data-mptype': 'sdb',
-    location: 'headEnd'
-  }, attrs));
+
+  if (!this.isDomAvailable) {
+    var _context7, _context8;
+
+    this.headData.push(_concatInstanceProperty__default["default"](_context7 = "<script type=\"application/ld+json\"".concat(this.isObject(attrs) ? ' ' + _mapInstanceProperty__default["default"](_context8 = _Object$keys__default["default"](attrs)).call(_context8, function (attr) {
+      var _context9;
+
+      return _concatInstanceProperty__default["default"](_context9 = "".concat(attr, "=\"")).call(_context9, attrs[attr], "\"");
+    }).join(' ') : '', ">")).call(_context7, _JSON$stringify__default["default"](o), "</script>"));
+  } else {
+    scripter.injectjsonld(o, {
+      location: 'headEnd',
+      attrs: attrs
+    });
+  }
+
   return this;
 };
 
@@ -523,6 +555,19 @@ Metapatcher.prototype.findMimeType = function findMimeType(path) {
 Metapatcher.prototype.set = function set(tag, id) {
   var attrs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
+  if (!this.isDomAvailable) {
+    var _context10, _context11, _context12;
+
+    var html = _concatInstanceProperty__default["default"](_context10 = _concatInstanceProperty__default["default"](_context11 = "<".concat(tag)).call(_context11, id ? ' id="' + id + '"' : '')).call(_context10, this.isObject(attrs) ? ' ' + _mapInstanceProperty__default["default"](_context12 = _Object$keys__default["default"](attrs)).call(_context12, function (attr) {
+      var _context13;
+
+      return _concatInstanceProperty__default["default"](_context13 = "".concat(attr, "=\"")).call(_context13, attrs[attr], "\"");
+    }).join(' ') : '', ">");
+
+    this.headData.push(html);
+    return html;
+  }
+
   if (id) {
     var alreadyExist = this.hasElement(tag + '[' + id + '="' + attrs[id] + '"]');
     if (alreadyExist) alreadyExist.parentNode.removeChild(alreadyExist);
@@ -541,9 +586,9 @@ Metapatcher.prototype.createElement = function createElement(tag, attrs) {
   var elem = document.createElement(tag);
 
   if (this.isObject(attrs)) {
-    var _context7;
+    var _context14;
 
-    _mapInstanceProperty__default["default"](_context7 = _Object$keys__default["default"](attrs)).call(_context7, function (attr) {
+    _mapInstanceProperty__default["default"](_context14 = _Object$keys__default["default"](attrs)).call(_context14, function (attr) {
       return elem.setAttribute(attr, attrs[attr]);
     });
   }
@@ -555,12 +600,18 @@ Metapatcher.prototype.patch = function patch(elem) {
   document.getElementsByTagName('head')[0].insertBefore(elem, null);
 };
 
+Metapatcher.prototype.dump = function dump() {
+  var data = this.headData.join("\n");
+  this.headData = [];
+  return data;
+};
+
 Metapatcher.prototype.configure = function configure() {
-  var _context8;
+  var _context15;
 
   var userSettings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var defaultSettings = this.defaultSettings;
-  this.settings = _reduceInstanceProperty__default["default"](_context8 = _Object$keys__default["default"](this.defaultSettings)).call(_context8, function (memo, name) {
+  this.settings = _reduceInstanceProperty__default["default"](_context15 = _Object$keys__default["default"](this.defaultSettings)).call(_context15, function (memo, name) {
     memo[name] = userSettings[name] || defaultSettings[name] || {};
     return memo;
   }, {});
