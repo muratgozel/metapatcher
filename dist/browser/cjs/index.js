@@ -556,12 +556,12 @@ Metapatcher.prototype.set = function set(tag, id) {
   var attrs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   if (!this.isDomAvailable) {
-    var _context10, _context11, _context12;
+    var _context10, _context11;
 
-    var html = _concatInstanceProperty__default["default"](_context10 = _concatInstanceProperty__default["default"](_context11 = "<".concat(tag)).call(_context11, id ? ' id="' + id + '"' : '')).call(_context10, this.isObject(attrs) ? ' ' + _mapInstanceProperty__default["default"](_context12 = _Object$keys__default["default"](attrs)).call(_context12, function (attr) {
-      var _context13;
+    var html = _concatInstanceProperty__default["default"](_context10 = "<".concat(tag)).call(_context10, this.isObject(attrs) ? ' ' + _mapInstanceProperty__default["default"](_context11 = _Object$keys__default["default"](attrs)).call(_context11, function (attr) {
+      var _context12;
 
-      return _concatInstanceProperty__default["default"](_context13 = "".concat(attr, "=\"")).call(_context13, attrs[attr], "\"");
+      return _concatInstanceProperty__default["default"](_context12 = "".concat(attr, "=\"")).call(_context12, attrs[attr], "\"");
     }).join(' ') : '', ">");
 
     this.headData.push(html);
@@ -586,9 +586,9 @@ Metapatcher.prototype.createElement = function createElement(tag, attrs) {
   var elem = document.createElement(tag);
 
   if (this.isObject(attrs)) {
-    var _context14;
+    var _context13;
 
-    _mapInstanceProperty__default["default"](_context14 = _Object$keys__default["default"](attrs)).call(_context14, function (attr) {
+    _mapInstanceProperty__default["default"](_context13 = _Object$keys__default["default"](attrs)).call(_context13, function (attr) {
       return elem.setAttribute(attr, attrs[attr]);
     });
   }
@@ -607,11 +607,11 @@ Metapatcher.prototype.dump = function dump() {
 };
 
 Metapatcher.prototype.configure = function configure() {
-  var _context15;
+  var _context14;
 
   var userSettings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var defaultSettings = this.defaultSettings;
-  this.settings = _reduceInstanceProperty__default["default"](_context15 = _Object$keys__default["default"](this.defaultSettings)).call(_context15, function (memo, name) {
+  this.settings = _reduceInstanceProperty__default["default"](_context14 = _Object$keys__default["default"](this.defaultSettings)).call(_context14, function (memo, name) {
     memo[name] = userSettings[name] || defaultSettings[name] || {};
     return memo;
   }, {});

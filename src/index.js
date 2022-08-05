@@ -395,7 +395,7 @@ Metapatcher.prototype.findMimeType = function findMimeType(path) {
 
 Metapatcher.prototype.set = function set(tag, id, attrs = {}) {
   if (!this.isDomAvailable) {
-    const html = `<${tag}${id ? ' id="' + id + '"' : ''}${this.isObject(attrs)
+    const html = `<${tag}${this.isObject(attrs)
       ? ' ' + Object.keys(attrs).map(attr => `${attr}="${attrs[attr]}"`).join(' ')
       : ''}>`
     this.headData.push(html)
