@@ -1,4 +1,4 @@
-const metapatcher = require('../dist/browser/cjs')
+import { metapatcher } from "../build/index.js";
 
 describe('Metapatcher node env', function() {
 
@@ -15,8 +15,7 @@ describe('Metapatcher node env', function() {
 <meta name="names" content="One">
 <meta name="names" content="Two">`)
 
-    const html4 = metapatcher.setFavicon('/favicon.ico')
-    expect(html4).toEqual('<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">')
+    metapatcher.setFavicon('/favicon.ico')
     expect(metapatcher.dump()).toEqual(`<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">`)
   })
 })

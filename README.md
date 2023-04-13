@@ -1,34 +1,28 @@
 # metapatcher
 Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions. Now its compatible with server environments!
 
-![NPM](https://img.shields.io/npm/l/metapatcher)
-[![npm version](https://badge.fury.io/js/metapatcher.svg)](https://badge.fury.io/js/metapatcher)
-![npm bundle size](https://img.shields.io/bundlephobia/min/metapatcher)
-![npm](https://img.shields.io/npm/dy/metapatcher)
-
 ## Install
 ```sh
 npm install metapatcher
 ```
 
 ## Import
-Require or import:
 ```js
-const metapatcher = require('metapatcher')
-// or
-import metapatcher from 'metapatcher'
+// cjs
+const {metapatcher} = require('metapatcher')
+
+// es
+import {metapatcher} from 'metapatcher'
+
+// script tag, window.metapatcher
+<script src="https://cdn.jsdelivr.net/npm/metapatcher@3/dist/metapatcher.iife.js" crossorigin type="text/javascript"></script>
 ```
-Or inject via `<script>` tag:
-```html
-<script src="https://cdn.jsdelivr.net/npm/metapatcher@2/dist/metapatcher.iife.js" crossorigin type="text/javascript"></script>
-```
-Accessible at `window.metapatcher`.
 
 ## Usage
 ### Configure
 Apply settings upon initiation:
 ```js
-// these are default settings
+// default settings
 const settings = {
   structuredData: {enabled: true},
   androidChromeIcons: {enabled: true},
@@ -39,8 +33,10 @@ const settings = {
   twitterTags: {enabled: true},
   facebookTags: {enabled: true}
 }
+// no need to run configure if you are okay with the default settings
 metapatcher.configure(settings)
 ```
+
 ### Essential Methods
 ```js
 // injects favicon and returns the dom element
@@ -121,6 +117,7 @@ metapatcher.set('link', undefined, {rel: 'stylesheet', href: '/path/style.css'})
 // disable chrome auto-translate recommendation
 metapatcher.set('meta', undefined, {name: 'google', content: 'notranslate'})
 ```
+
 ### Breadcrumb
 An array of objects in the right order can be converted a valid structured data format:
 ```js
@@ -130,6 +127,7 @@ const data = [
 ]
 metapatcher.breadcrumb(data) // returns self
 ```
+
 ### Icons
 Icons handled specially. There are various platform spesific icon sizes and specifications across browsers and devices. Metapatcher can cover all of it if you can give your icons in the format below:
 ```js
@@ -141,6 +139,7 @@ const icons = [
 ]
 metapatcher.setIcons(icons)
 ```
+
 ### Platform Specific Methods
 ```js
 metapatcher.setSafariMobileWebApp({
@@ -163,9 +162,9 @@ metapatcher.setTwitterMeta({
 ### Server Environment Compatibility
 On server env, where `window` and `document` not available, the module creates string versions of html tags so you can create the html document by using the `dump` method:
 ```js
-const html1 = metapatcher.set('meta', 'name', {name: 'number', content: 'One'})
-const html2 = metapatcher.set('meta', undefined, {name: 'names', content: 'One'})
-const html3 = metapatcher.set('meta', undefined, {name: 'names', content: 'Two'})
+metapatcher.set('meta', 'name', {name: 'number', content: 'One'})
+metapatcher.set('meta', undefined, {name: 'names', content: 'One'})
+metapatcher.set('meta', undefined, {name: 'names', content: 'Two'})
 
 const dump = metapatcher.dump()
 /*

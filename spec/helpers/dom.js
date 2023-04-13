@@ -1,4 +1,4 @@
-const {JSDOM} = require('jsdom')
+import { JSDOM } from 'jsdom'
 
 const doc = `
 <!DOCTYPE html>

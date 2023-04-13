@@ -1,4 +1,4 @@
-const metapatcher = require('../dist/browser/cjs')
+import { metapatcher } from "../build/index.js";
 
 describe('Metapatcher browser env', function() {
 
@@ -29,8 +29,8 @@ describe('Metapatcher browser env', function() {
   })
 
   it('Patching favicon.', function() {
-    const elem = metapatcher.setFavicon('/favicon.ico')
-    expect(elem).toEqual(document.querySelector('link[rel="shortcut icon"]'))
+    metapatcher.setFavicon('/favicon.ico')
+    const elem = document.querySelector('link[rel="shortcut icon"]')
     expect(elem.getAttribute('rel')).toEqual('shortcut icon')
     expect(elem.getAttribute('href')).toEqual('/favicon.ico')
     expect(elem.getAttribute('type')).toEqual('image/x-icon')

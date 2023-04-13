@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "@tsconfig/node18/tsconfig.json",
+    "@tsconfig/esm/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "outDir": "build",
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "types"
+    ],
+    "lib": [
+      "es2022",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/**/*",
+    "types/**/*"
+  ]
+}
