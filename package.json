@@ -1,24 +1,20 @@
 {
   "name": "metapatcher",
-  "version": "v3.0.0",
+  "version": "v3.0.1",
   "description": "Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions.",
   "main": "./dist/browser/cjs/index.js",
   "module": "./dist/browser/es/index.js",
   "type": "module",
   "types": "types",
   "exports": {
-    ".": {
-      "import": "./dist/browser/es/index.js",
-      "require": "./dist/browser/cjs/index.js"
-    },
-    "./browser": {
-      "import": "./dist/browser/es/index.js",
-      "require": "./dist/browser/cjs/index.js"
-    }
+    "import": "./dist/metapatcher.es.js",
+    "require": "./dist/metapatcher.cjs.js",
+    "default": "./dist/metapatcher.cjs.js"
   },
   "scripts": {
     "precompile": "rm -rf build/*",
     "compile": "tsc -p tsconfig.json",
+    "prebuild": "rm -rf dist/*",
     "build": "rollup --config rollup.config.js",
     "test": "NODE_ENV=test jasmine --config=spec/config/browser.json && jasmine --config=spec/config/node.json"
   },

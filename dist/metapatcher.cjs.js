@@ -1,20 +1,22 @@
-import _asyncToGenerator from '@babel/runtime-corejs3/helpers/asyncToGenerator';
-import _classCallCheck from '@babel/runtime-corejs3/helpers/classCallCheck';
-import _createClass from '@babel/runtime-corejs3/helpers/createClass';
-import _defineProperty from '@babel/runtime-corejs3/helpers/defineProperty';
-import _classPrivateFieldSet from '@babel/runtime-corejs3/helpers/classPrivateFieldSet';
-import _classPrivateFieldGet from '@babel/runtime-corejs3/helpers/classPrivateFieldGet';
-import _regeneratorRuntime from '@babel/runtime-corejs3/regenerator';
-import _Object$assign from '@babel/runtime-corejs3/core-js/object/assign';
-import _JSON$stringify from '@babel/runtime-corejs3/core-js/json/stringify';
-import _includesInstanceProperty from '@babel/runtime-corejs3/core-js/instance/includes';
-import _mapInstanceProperty from '@babel/runtime-corejs3/core-js/instance/map';
-import _Object$keys from '@babel/runtime-corejs3/core-js/object/keys';
-import _concatInstanceProperty from '@babel/runtime-corejs3/core-js/instance/concat';
-import _lastIndexOfInstanceProperty from '@babel/runtime-corejs3/core-js/instance/last-index-of';
-import _sliceInstanceProperty from '@babel/runtime-corejs3/core-js/instance/slice';
-import _WeakMap from '@babel/runtime-corejs3/core-js/weak-map';
-import { domScripter } from 'dom-scripter';
+'use strict';
+
+var _asyncToGenerator = require('@babel/runtime-corejs3/helpers/asyncToGenerator');
+var _classCallCheck = require('@babel/runtime-corejs3/helpers/classCallCheck');
+var _createClass = require('@babel/runtime-corejs3/helpers/createClass');
+var _defineProperty = require('@babel/runtime-corejs3/helpers/defineProperty');
+var _classPrivateFieldSet = require('@babel/runtime-corejs3/helpers/classPrivateFieldSet');
+var _classPrivateFieldGet = require('@babel/runtime-corejs3/helpers/classPrivateFieldGet');
+var _regeneratorRuntime = require('@babel/runtime-corejs3/regenerator');
+var _Object$assign = require('@babel/runtime-corejs3/core-js/object/assign');
+var _JSON$stringify = require('@babel/runtime-corejs3/core-js/json/stringify');
+var _includesInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/includes');
+var _mapInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/map');
+var _Object$keys = require('@babel/runtime-corejs3/core-js/object/keys');
+var _concatInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/concat');
+var _lastIndexOfInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/last-index-of');
+var _sliceInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/slice');
+var _WeakMap = require('@babel/runtime-corejs3/core-js/weak-map');
+var domScripter = require('dom-scripter');
 
 function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
 function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
@@ -170,7 +172,7 @@ var Metapatcher = /*#__PURE__*/function () {
           if (!_classPrivateFieldGet(this, _isDomAvailable)) {
             _classPrivateFieldGet(this, _memory).push("<script type=\"application/ld+json\" id=\"".concat(logoJsonLdId, "\">").concat(_JSON$stringify(logoJsonLd), "</script>"));
           } else {
-            domScripter.injectJsonLd(logoJsonLd, {
+            domScripter.domScripter.injectJsonLd(logoJsonLd, {
               location: 'headEnd',
               id: logoJsonLdId
             });
@@ -545,7 +547,7 @@ var Metapatcher = /*#__PURE__*/function () {
               break;
             case 8:
               _context10.next = 10;
-              return domScripter.injectJsonLd(json, {
+              return domScripter.domScripter.injectJsonLd(json, {
                 location: 'headEnd',
                 attrs: attrs
               });
@@ -653,5 +655,5 @@ var Metapatcher = /*#__PURE__*/function () {
 }();
 var metapatcher = new Metapatcher();
 
-export { Metapatcher, metapatcher };
-//# sourceMappingURL=index.js.map
+exports.Metapatcher = Metapatcher;
+exports.metapatcher = metapatcher;

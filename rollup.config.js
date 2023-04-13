@@ -35,13 +35,13 @@ export default [
         output: [
             {
                 format: 'cjs',
-                file: 'dist/browser/cjs/index.js',
-                sourcemap: true
+                file: 'dist/metapatcher.cjs.js',
+                sourcemap: false
             },
             {
                 format: 'es',
-                file: 'dist/browser/es/index.js',
-                sourcemap: true
+                file: 'dist/metapatcher.es.js',
+                sourcemap: false
             }
         ],
         plugins: [
@@ -63,7 +63,7 @@ export default [
             {
                 format: 'iife',
                 name: 'metapatcher',
-                file: 'dist/browser/iife/index.js',
+                file: 'dist/metapatcher.iife.js',
                 sourcemap: true,
                 globals: {
                     metapatcher: 'metapatcher'
