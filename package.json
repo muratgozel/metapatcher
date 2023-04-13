@@ -1,6 +1,6 @@
 {
   "name": "metapatcher",
-  "version": "v3.0.1",
+  "version": "v3.0.2",
   "description": "Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions.",
   "main": "./dist/browser/cjs/index.js",
   "module": "./dist/browser/es/index.js",
@@ -58,7 +58,6 @@
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
     "core-js": "^3.18.3",
-    "dom-scripter": "^5.0.0",
     "eslint": "^8.38.0",
     "jasmine": "^4.6.0",
     "jsdom": "^21.1.1",
@@ -71,6 +70,7 @@
     "@babel/runtime-corejs3": "^7.15.4",
     "@tsconfig/esm": "^1.0.2",
     "@tsconfig/node18": "^1.0.1",
-    "@tsconfig/strictest": "^2.0.0"
+    "@tsconfig/strictest": "^2.0.0",
+    "dom-scripter": "^5.0.5"
   }
 }
