@@ -1,6 +1,6 @@
 {
   "name": "metapatcher",
-  "version": "v3.0.2",
+  "version": "v3.0.3",
   "description": "Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions.",
   "main": "./dist/browser/cjs/index.js",
   "module": "./dist/browser/es/index.js",
@@ -9,7 +9,8 @@
   "exports": {
     "import": "./dist/metapatcher.es.js",
     "require": "./dist/metapatcher.cjs.js",
-    "default": "./dist/metapatcher.cjs.js"
+    "default": "./dist/metapatcher.cjs.js",
+    "types": "./types/index.d.ts"
   },
   "scripts": {
     "precompile": "rm -rf build/*",
@@ -50,27 +51,31 @@
     "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.15.6",
     "@rollup/plugin-babel": "^6.0.3",
-    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-terser": "^0.4.1",
-    "@types/node": "^18.15.11",
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
+    "@tsconfig/node20": "^20.1.2",
+    "@tsconfig/strictest": "^2.0.0",
+    "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
     "core-js": "^3.18.3",
     "eslint": "^8.38.0",
-    "jasmine": "^4.6.0",
-    "jsdom": "^21.1.1",
+    "eslint-config-standard-with-typescript": "^43.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "jasmine": "^5.1.0",
+    "jsdom": "^23.2.0",
+    "jsom": "^1.0.0",
     "node-releaser": "^2.0.0-beta.4",
-    "rollup": "^3.20.2",
+    "rollup": "^4.9.5",
     "typescript": "^5.0.4"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.4",
     "@babel/runtime-corejs3": "^7.15.4",
-    "@tsconfig/esm": "^1.0.2",
-    "@tsconfig/node18": "^1.0.1",
-    "@tsconfig/strictest": "^2.0.0",
     "dom-scripter": "^5.0.5"
   }
 }

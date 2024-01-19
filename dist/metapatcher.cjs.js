@@ -8,11 +8,11 @@ var _classPrivateFieldSet = require('@babel/runtime-corejs3/helpers/classPrivate
 var _classPrivateFieldGet = require('@babel/runtime-corejs3/helpers/classPrivateFieldGet');
 var _regeneratorRuntime = require('@babel/runtime-corejs3/regenerator');
 var _Object$assign = require('@babel/runtime-corejs3/core-js/object/assign');
+var _concatInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/concat');
 var _JSON$stringify = require('@babel/runtime-corejs3/core-js/json/stringify');
 var _includesInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/includes');
 var _mapInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/map');
 var _Object$keys = require('@babel/runtime-corejs3/core-js/object/keys');
-var _concatInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/concat');
 var _lastIndexOfInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/last-index-of');
 var _sliceInstanceProperty = require('@babel/runtime-corejs3/core-js/instance/slice');
 var _WeakMap = require('@babel/runtime-corejs3/core-js/weak-map');
@@ -170,7 +170,8 @@ var Metapatcher = /*#__PURE__*/function () {
             url: obj.url
           };
           if (!_classPrivateFieldGet(this, _isDomAvailable)) {
-            _classPrivateFieldGet(this, _memory).push("<script type=\"application/ld+json\" id=\"".concat(logoJsonLdId, "\">").concat(_JSON$stringify(logoJsonLd), "</script>"));
+            var _context;
+            _classPrivateFieldGet(this, _memory).push(_concatInstanceProperty(_context = "<script type=\"application/ld+json\" id=\"".concat(logoJsonLdId, "\">")).call(_context, _JSON$stringify(logoJsonLd), "</script>"));
           } else {
             domScripter.domScripter.injectJsonLd(logoJsonLd, {
               location: 'headEnd',
@@ -207,8 +208,8 @@ var Metapatcher = /*#__PURE__*/function () {
   }, {
     key: "prioritize",
     value: function prioritize(url, method) {
-      var _context;
-      if (_includesInstanceProperty(_context = _classPrivateFieldGet(this, _prioritizeMethods)).call(_context, method)) {
+      var _context2;
+      if (_includesInstanceProperty(_context2 = _classPrivateFieldGet(this, _prioritizeMethods)).call(_context2, method)) {
         this.set('meta', undefined, {
           name: method,
           content: url
@@ -236,14 +237,14 @@ var Metapatcher = /*#__PURE__*/function () {
     value: function setIcons(list) {
       var _this = this;
       _mapInstanceProperty(list).call(list, function (url) {
-        var _context2, _context3, _context4;
+        var _context3, _context4, _context5;
         var type = _this.findMimeType(url);
         var sizeMatches = url.match(_classPrivateFieldGet(_this, _reImageSizeFromStr));
         var size = _this.isArray(sizeMatches) && sizeMatches.length > 0 ? sizeMatches[0] : undefined;
         if (typeof type !== 'string') return;
         if (typeof size !== 'string') return;
         // android chrome icons
-        if (_this.settings.androidChromeIcons && _this.settings.androidChromeIcons.enabled && _includesInstanceProperty(_context2 = _classPrivateFieldGet(_this, _validAndroidChromeIconSizes)).call(_context2, size)) {
+        if (_this.settings.androidChromeIcons && _this.settings.androidChromeIcons.enabled && _includesInstanceProperty(_context3 = _classPrivateFieldGet(_this, _validAndroidChromeIconSizes)).call(_context3, size)) {
           _this.set('link', undefined, {
             rel: 'icon',
             href: url,
@@ -252,7 +253,7 @@ var Metapatcher = /*#__PURE__*/function () {
           });
         }
         // apple touch icons
-        if (_this.settings.appleTags && _this.settings.appleTags.enabled && _includesInstanceProperty(_context3 = _classPrivateFieldGet(_this, _validAppleTouchIconSizes)).call(_context3, size)) {
+        if (_this.settings.appleTags && _this.settings.appleTags.enabled && _includesInstanceProperty(_context4 = _classPrivateFieldGet(_this, _validAppleTouchIconSizes)).call(_context4, size)) {
           _this.set('link', undefined, {
             rel: 'apple-touch-icon',
             href: url,
@@ -260,7 +261,7 @@ var Metapatcher = /*#__PURE__*/function () {
           });
         }
         // mstile icons
-        if (_this.settings.msTags && _this.settings.msTags.enabled && _includesInstanceProperty(_context4 = _classPrivateFieldGet(_this, _validMSTileIconSizes)).call(_context4, size)) {
+        if (_this.settings.msTags && _this.settings.msTags.enabled && _includesInstanceProperty(_context5 = _classPrivateFieldGet(_this, _validMSTileIconSizes)).call(_context5, size)) {
           _this.set('meta', undefined, {
             name: _classPrivateFieldGet(_this, _msTilesNamingMap)[size],
             content: url
@@ -353,14 +354,14 @@ var Metapatcher = /*#__PURE__*/function () {
         }
       }
       if (obj.localVersions) {
-        var _context5;
-        _mapInstanceProperty(_context5 = _Object$keys(obj.localVersions)).call(_context5, function (lo) {
+        var _context6;
+        _mapInstanceProperty(_context6 = _Object$keys(obj.localVersions)).call(_context6, function (lo) {
           return _this2.setLocalVersion(lo, obj.localVersions[lo], typeof obj.locale === 'string' && obj.locale == lo);
         });
       }
       if (obj.canonicals) {
-        var _context6;
-        _mapInstanceProperty(_context6 = obj.canonicals).call(_context6, function (url) {
+        var _context7;
+        _mapInstanceProperty(_context7 = obj.canonicals).call(_context7, function (url) {
           return _this2.setCanonical(url);
         });
       }
@@ -509,18 +510,18 @@ var Metapatcher = /*#__PURE__*/function () {
       var _breadcrumb = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(data) {
         var attrs,
           json,
-          _context7,
           _context8,
+          _context9,
           _args = arguments;
-        return _regeneratorRuntime.wrap(function _callee$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
+        return _regeneratorRuntime.wrap(function _callee$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
             case 0:
               attrs = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
               if (!(this.settings.structuredData && !this.settings.structuredData.enabled)) {
-                _context10.next = 3;
+                _context11.next = 3;
                 break;
               }
-              return _context10.abrupt("return", this);
+              return _context11.abrupt("return", this);
             case 3:
               json = {
                 '@type': 'BreadcrumbList',
@@ -536,26 +537,26 @@ var Metapatcher = /*#__PURE__*/function () {
                 })
               };
               if (_classPrivateFieldGet(this, _isDomAvailable)) {
-                _context10.next = 8;
+                _context11.next = 8;
                 break;
               }
-              _classPrivateFieldGet(this, _memory).push(_concatInstanceProperty(_context7 = "<script type=\"application/ld+json\"".concat(this.isObject(attrs) ? ' ' + _mapInstanceProperty(_context8 = _Object$keys(attrs)).call(_context8, function (attr) {
-                var _context9;
-                return _concatInstanceProperty(_context9 = "".concat(attr, "=\"")).call(_context9, attrs[attr], "\"");
-              }).join(' ') : '', ">")).call(_context7, _JSON$stringify(json), "</script>"));
-              _context10.next = 10;
+              _classPrivateFieldGet(this, _memory).push(_concatInstanceProperty(_context8 = "<script type=\"application/ld+json\"".concat(this.isObject(attrs) ? ' ' + _mapInstanceProperty(_context9 = _Object$keys(attrs)).call(_context9, function (attr) {
+                var _context10;
+                return _concatInstanceProperty(_context10 = "".concat(attr, "=\"")).call(_context10, attrs[attr], "\"");
+              }).join(' ') : '', ">")).call(_context8, _JSON$stringify(json), "</script>"));
+              _context11.next = 10;
               break;
             case 8:
-              _context10.next = 10;
+              _context11.next = 10;
               return domScripter.domScripter.injectJsonLd(json, {
                 location: 'headEnd',
                 attrs: attrs
               });
             case 10:
-              return _context10.abrupt("return", this);
+              return _context11.abrupt("return", this);
             case 11:
             case "end":
-              return _context10.stop();
+              return _context11.stop();
           }
         }, _callee, this);
       }));
@@ -569,10 +570,10 @@ var Metapatcher = /*#__PURE__*/function () {
     value: function set(tag, id) {
       var attrs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       if (!_classPrivateFieldGet(this, _isDomAvailable)) {
-        var _context11, _context12;
-        var html = _concatInstanceProperty(_context11 = "<".concat(tag)).call(_context11, this.isObject(attrs) ? ' ' + _mapInstanceProperty(_context12 = _Object$keys(attrs)).call(_context12, function (attr) {
-          var _context13;
-          return _concatInstanceProperty(_context13 = "".concat(attr, "=\"")).call(_context13, attrs[attr], "\"");
+        var _context12, _context13;
+        var html = _concatInstanceProperty(_context12 = "<".concat(tag)).call(_context12, this.isObject(attrs) ? ' ' + _mapInstanceProperty(_context13 = _Object$keys(attrs)).call(_context13, function (attr) {
+          var _context14;
+          return _concatInstanceProperty(_context14 = "".concat(attr, "=\"")).call(_context14, attrs[attr], "\"");
         }).join(' ') : '', ">");
         _classPrivateFieldGet(this, _memory).push(html);
         return html;
@@ -628,8 +629,8 @@ var Metapatcher = /*#__PURE__*/function () {
     value: function createElement(tag, attrs) {
       var elem = document.createElement(tag);
       if (this.isObject(attrs)) {
-        var _context14;
-        _mapInstanceProperty(_context14 = _Object$keys(attrs)).call(_context14, function (attr) {
+        var _context15;
+        _mapInstanceProperty(_context15 = _Object$keys(attrs)).call(_context15, function (attr) {
           return elem.setAttribute(attr, attrs[attr]);
         });
       }

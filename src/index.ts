@@ -1,17 +1,3 @@
-import type {
-    Settings,
-    HtmlElementAttrs,
-    MimeTypesByExtension,
-    ImageInput,
-    Breadcrumb,
-    TwitterMetaInput,
-    FacebookMetaInput,
-    SafariInput,
-    PageMetaInput,
-    MsTilesNamingMap,
-    ProjectMetaInput
-} from 'metapatcher'
-
 import { domScripter } from 'dom-scripter'
 
 export class Metapatcher {
@@ -446,3 +432,83 @@ export class Metapatcher {
 }
 
 export const metapatcher = new Metapatcher()
+
+export interface Settings {
+    structuredData?: { enabled: boolean }
+    androidChromeIcons?: { enabled: boolean }
+    msTags?: { enabled: boolean }
+    safariTags?: { enabled: boolean }
+    appleTags?: { enabled: boolean }
+    openGraphTags?: { enabled: boolean }
+    twitterTags?: { enabled: boolean }
+    facebookTags?: { enabled: boolean }
+}
+
+export interface HtmlElementAttrs {
+    [key: string]: string
+}
+
+export interface MimeTypesByExtension {
+    'svg': 'image/svg+xml',
+    'png': 'image/png',
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'ico': 'image/x-icon',
+    'gif': 'image/gif',
+    'webp': 'image/webp',
+    'bmp': 'image/bmp'
+}
+
+export interface ImageInput {
+    url?: string
+    width?: string
+    height?: string
+}
+
+export interface Breadcrumb {
+    title: string
+    url: string
+}
+
+export interface TwitterMetaInput {
+    card?: string
+    site?: string
+    creator?: string
+    title?: string
+    description?: string
+    image?: string
+}
+
+export interface FacebookMetaInput {
+    appId?: string
+}
+
+export interface SafariInput {
+    name?: string
+    statusBarStyle?: string
+}
+
+export interface PageMetaInput {
+    title?: string
+    description?: string
+    url?: string
+    image?: string | ImageInput
+    locale?: string
+    localVersions?: {[index: string]: string}
+    canonicals?: string[]
+}
+
+export interface MsTilesNamingMap {
+    '70x70': 'msapplication-square70x70logo',
+    '150x150': 'msapplication-square150x150logo',
+    '310x310': 'msapplication-square310x310logo',
+    '310x150': 'msapplication-wide310x150logo'
+}
+
+export interface ProjectMetaInput {
+    name?: string
+    url?: string
+    logo?: string
+    primaryColor?: string
+    backgroundColor?: string
+}
