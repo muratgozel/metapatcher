@@ -1,6 +1,6 @@
 {
   "name": "metapatcher",
-  "version": "v4.0.1",
+  "version": "v4.0.2",
   "description": "HTML document head management library with convenient api. Manage social media tags, icons, device specific tags and event structured data with html meta tags and JSONLD documents.",
   "type": "module",
   "main": "./dist/index.js",

@@ -645,7 +645,7 @@ export type MetapatcherHtmlTagAttrs = Record<string, string | boolean>
 
 export interface MetapatcherSetStylesheetAttrs {
     id: string
-    readonly rel: 'stylesheet'
+    readonly rel?: 'stylesheet'
     href: string
     media?: string
 }
@@ -674,14 +674,14 @@ export interface MetapatcherSetSettings {
 }
 
 export interface MetapatcherCanonicalLinkAttrs {
-    readonly rel: 'canonical'
+    readonly rel?: 'canonical'
     id?: string
     href: string
     [index: string]: string | boolean
 }
 
 export interface MetapatcherMobileVariantLinkAttrs {
-    readonly rel: 'alternate'
+    readonly rel?: 'alternate'
     id?: string
     media: string
     href: string
@@ -689,7 +689,7 @@ export interface MetapatcherMobileVariantLinkAttrs {
 }
 
 export interface MetapatcherLocalVersionLinkAttrs {
-    readonly rel: 'alternate'
+    readonly rel?: 'alternate'
     id?: string
     hreflang: string
     href: string
@@ -702,7 +702,7 @@ export interface MetapatcherBreadcrumb {
 }
 
 export interface MetapatcherSafariPinnedTabAttrs {
-    readonly rel: 'mask-icon'
+    readonly rel?: 'mask-icon'
     id?: string
     href: string
     color: string
@@ -710,21 +710,21 @@ export interface MetapatcherSafariPinnedTabAttrs {
 }
 
 export interface MetapatcherFaviconAttrs {
-    readonly rel: 'shortcut icon'
+    readonly rel?: 'shortcut icon'
     id?: string
     href: string
     [index: string]: string | boolean
 }
 
 export interface MetapatcherRobotsAttrs {
-    readonly name: 'robots'
+    readonly name?: 'robots'
     id?: string
     content: string
     [index: string]: string | boolean
 }
 
 export interface MetapatcherPreloadAttrs {
-    readonly rel: 'preload'
+    readonly rel?: 'preload'
     id?: string
     href: string
     as?: MetapatcherPreloadAs
@@ -737,21 +737,21 @@ export interface MetapatcherPreloadAttrs {
 export type MetapatcherPreloadAs = 'audio' | 'document' | 'embed' | 'fetch' | 'font' | 'image' | 'object' | 'script' | 'style' | 'track' | 'worker' | 'video'
 
 export interface MetapatcherPrefetchAttrs {
-    readonly rel: 'prefetch'
+    readonly rel?: 'prefetch'
     id?: string
     href: string
     [index: string]: string | boolean
 }
 
 export interface MetapatcherPreconnectAttrs {
-    readonly rel: 'preconnect'
+    readonly rel?: 'preconnect'
     id?: string
     href: string
     [index: string]: string | boolean
 }
 
 export interface MetapatcherDnsPrefetchAttrs {
-    readonly rel: 'dns-prefetch'
+    readonly rel?: 'dns-prefetch'
     id?: string
     href: string
     [index: string]: string | boolean
@@ -772,7 +772,7 @@ export interface MetapatcherProjectParams {
 }
 
 export interface MetapatcherMsApplicationConfigAttrs {
-    readonly name: 'msapplication-config'
+    readonly name?: 'msapplication-config'
     id?: string
     content: string
     [index: string]: string | boolean

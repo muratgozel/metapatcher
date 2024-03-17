@@ -77,7 +77,7 @@ type MetapatcherFeatures = 'structuredData' | 'webAppManifest' | 'msTags' | 'app
 type MetapatcherHtmlTagAttrs = Record<string, string | boolean>;
 interface MetapatcherSetStylesheetAttrs {
     id: string;
-    readonly rel: 'stylesheet';
+    readonly rel?: 'stylesheet';
     href: string;
     media?: string;
 }
@@ -101,20 +101,20 @@ interface MetapatcherSetSettings {
     void?: boolean;
 }
 interface MetapatcherCanonicalLinkAttrs {
-    readonly rel: 'canonical';
+    readonly rel?: 'canonical';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
 interface MetapatcherMobileVariantLinkAttrs {
-    readonly rel: 'alternate';
+    readonly rel?: 'alternate';
     id?: string;
     media: string;
     href: string;
     [index: string]: string | boolean;
 }
 interface MetapatcherLocalVersionLinkAttrs {
-    readonly rel: 'alternate';
+    readonly rel?: 'alternate';
     id?: string;
     hreflang: string;
     href: string;
@@ -125,26 +125,26 @@ interface MetapatcherBreadcrumb {
     url: string;
 }
 interface MetapatcherSafariPinnedTabAttrs {
-    readonly rel: 'mask-icon';
+    readonly rel?: 'mask-icon';
     id?: string;
     href: string;
     color: string;
     [index: string]: string | boolean;
 }
 interface MetapatcherFaviconAttrs {
-    readonly rel: 'shortcut icon';
+    readonly rel?: 'shortcut icon';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
 interface MetapatcherRobotsAttrs {
-    readonly name: 'robots';
+    readonly name?: 'robots';
     id?: string;
     content: string;
     [index: string]: string | boolean;
 }
 interface MetapatcherPreloadAttrs {
-    readonly rel: 'preload';
+    readonly rel?: 'preload';
     id?: string;
     href: string;
     as?: MetapatcherPreloadAs;
@@ -155,19 +155,19 @@ interface MetapatcherPreloadAttrs {
 }
 type MetapatcherPreloadAs = 'audio' | 'document' | 'embed' | 'fetch' | 'font' | 'image' | 'object' | 'script' | 'style' | 'track' | 'worker' | 'video';
 interface MetapatcherPrefetchAttrs {
-    readonly rel: 'prefetch';
+    readonly rel?: 'prefetch';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
 interface MetapatcherPreconnectAttrs {
-    readonly rel: 'preconnect';
+    readonly rel?: 'preconnect';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
 interface MetapatcherDnsPrefetchAttrs {
-    readonly rel: 'dns-prefetch';
+    readonly rel?: 'dns-prefetch';
     id?: string;
     href: string;
     [index: string]: string | boolean;
@@ -186,7 +186,7 @@ interface MetapatcherProjectParams {
     icons?: string[];
 }
 interface MetapatcherMsApplicationConfigAttrs {
-    readonly name: 'msapplication-config';
+    readonly name?: 'msapplication-config';
     id?: string;
     content: string;
     [index: string]: string | boolean;
