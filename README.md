@@ -1,179 +1,143 @@
 # metapatcher
-Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions. Now its compatible with server environments!
+HTML document head management library with convenient api. Manage social media tags, icons, device specific tags and event structured data with html meta tags and JSONLD documents. Supports both browser and server environments. Fully typed.
+
+It injects head tags based on features you enabled upon start. The features are device, browser, platform specific. You give the data you have on page load and it injects appropriately.
+- `structuredData` controls tags related to the [Google Search Structured Data](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data).
+- `openGraphTags` controls [Open Graph](https://ogp.me) tags which many social media sites rely to fetch page data
+- `webAppManifest` controls tags related to [Web Application Manifest](https://www.w3.org/TR/appmanifest/) spec.
+- `twitterTags` controls meta tags related to [Twitter Cards](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards)
+- `msTags` controls Microsoft device and browser specific tags including name, description and icons
+- `appleTags` controls Apple device specific tags such as icons, name and style
 
 ## Install
 ```sh
 npm install metapatcher
 ```
 
-## Import
-```js
-// cjs
-const {metapatcher} = require('metapatcher')
-
-// es
-import {metapatcher} from 'metapatcher'
-
-// script tag, window.metapatcher
-<script src="https://cdn.jsdelivr.net/npm/metapatcher@3/dist/metapatcher.iife.js" crossorigin type="text/javascript"></script>
-```
-
 ## Usage
+### Import
+```js
+import { metapatcher } from 'metapatcher'
+// or const { metapatcher } = require('metapatcher') for commonjs
+```
+or inject with script tag:
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/metapatcher@4/dist/index.js"></script>
+```
+
 ### Configure
-Apply settings upon initiation:
+All features mentioned above are enabled by default. You can disable some of them:
 ```js
-// default settings
-const settings = {
-  structuredData: {enabled: true},
-  androidChromeIcons: {enabled: true},
-  msTags: {enabled: true},
-  safariTags: {enabled: true},
-  appleTags: {enabled: true},
-  openGraphTags: {enabled: true},
-  twitterTags: {enabled: true},
-  facebookTags: {enabled: true}
-}
-// no need to run configure if you are okay with the default settings
-metapatcher.configure(settings)
+metapatcher.configure(['openGraphTags', 'structuredData', 'twitterTags', 'msTags', 'appleTags'])
+// configure also does some injections so you gonna call it anyway
+metapatcher.configure()
 ```
 
-### Essential Methods
+### Basic, High Level Methods
+You have to use at least the following methods to create satisfying frontends:
 ```js
-// injects favicon and returns the dom element
-metapatcher.setFavicon('/path/favicon.ico')
-
-// set application name, url and logo across devices and browsers
-// returns self
-metapatcher.setProjectMeta({
-  name: 'Sample App',
-  url: 'https://frondjs.org',
-  logo: '/path/logo.png',
-  primaryColor: '#333333',
-  backgroundColor: '#ffffff'
-})
-
-// set robots directives, returns the node element
-metapatcher.robots('noindex')
-metapatcher.robots('index, nofollow')
-// reference for google can be found at:
-// https://developers.google.com/search/reference/robots_meta_tag
-
-// prioritize loading resources, returns the node element
-metapatcher.prioritize('https://frondjs.org', 'preconnect')
-metapatcher.prioritize('https://frondjs.org', 'dns-prefetch')
-metapatcher.prioritize('/some/page', 'prefetch')
-metapatcher.prioritize('/some/path/sample.css', 'preload')
-// remove all prioritizations
-metapatcher.removeAllPrioritizations()
-
-// document title, meta name and description, social media, canonical, hreflang
-// and other applicable tags
-// returns self
-metapatcher.setPageMeta({
-  title: 'Home',
-  description: 'This is home.',
-  url: 'https://frondjs.org',
-  image: '/path/cover.jpg',
-  locale: 'tr_TR',
-  localVersions: {
-    'en_US': 'https://frondjs.org/en-us'
-  },
-  canonicals: [
-    'https://www.frondjs.org'
-  ]
-})
-
-// if you would like to patch canonicals seperately
-metapatcher.setCanonical('https://www.frondjs.org') // returns element
-metapatcher.setCanonical('https://www.frondjs.org/home')
-// and remove all of them
-metapatcher.removeAllCanonicals() // returns self
-
-// if you would like to patch local version tags seperately
-metapatcher.setLocalVersion('tr_TR', url, isActiveLocale = false) // returns self
-// isActiveLocale indicates that the locale in the first argument is
-// equal to the current locale of the page
-metapatcher.setLocalVersion('en_US', url2, true)
-// and remove all
-metapatcher.removeAllLocalVersions()
-```
-### Flexible
-Learn `.set` method to patch custom meta or link tags.
-```js
-const elem = metapatcher.set(tag, identifierAttr = undefined, attrs = {})
-```
-- `tag` is **meta** or **link**.
-- `identifierAttr` causes to remove any existing tags based on the `identifierAttr=attrs[identifierAttr]` match.
-- `attrs` is regular html attributes.
-```js
-// three example below will create meta name=$1 content=$2 tags.
-metapatcher.set('meta', 'name', {name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover'})
-metapatcher.set('meta', 'name', {name: 'manifest', content: '/manifest.json'})
-metapatcher.set('meta', 'name', {name: 'msapplication-config', content: '/path/msconfig.xml'})
-
-// the example below will create link rel=$1 href=$2 tag.
-metapatcher.set('link', undefined, {rel: 'stylesheet', href: '/path/style.css'})
-
-// disable chrome auto-translate recommendation
-metapatcher.set('meta', undefined, {name: 'google', content: 'notranslate'})
-```
-
-### Breadcrumb
-An array of objects in the right order can be converted a valid structured data format:
-```js
-const data = [
-  {title: 'Home', url: 'https://www.frondjs.org'},
-  {title: 'About', url: 'https://www.frondjs.org/about'}
-]
-metapatcher.breadcrumb(data) // returns self
-```
-
-### Icons
-Icons handled specially. There are various platform spesific icon sizes and specifications across browsers and devices. Metapatcher can cover all of it if you can give your icons in the format below:
-```js
-const icons = [
-  '/path/icon-72x72.png',
-  '/path/icon-180x180.png'
-  // ...
-  // /path/icon-[size].[ext]
-]
-metapatcher.setIcons(icons)
-```
-
-### Platform Specific Methods
-```js
-metapatcher.setSafariMobileWebApp({
-  name: 'Sample App', // already set with .setProjectMeta
-  statusBarStyle: 'black-translucent'
-})
-metapatcher.setSafariPinnedTab('/path/pinned-tab-icon.svg', '#000000')
-
-metapatcher.setFacebookMeta({
-  appID: ''
-})
-
-metapatcher.setTwitterMeta({
-  card: 'summary_large_image',
-  site: '@twitter',
-  creator: '@muratgozel'
+// all parameters are optional
+metapatcher.setProjectDetails({
+    favicon: '/path/favicon.ico',
+    name: 'My Project',
+    url: 'https://example.com',
+    robots: 'noindex, nofollow', // or "all" for example
+    logo: '/path/logo.png',
+    themeColor: '#333333',
+    twitterSite: '@twitter',
+    safariPinnedTab: { href: '/path/mark.svg', color: '#333333' },
+    // icons need to follow this naming: *-[width]x[height].ext
+    icons: ['/path/icon-16x16.png', '/path/icon-512x512.png', '/path/icon-150x150.png']
 })
 ```
+All of the parameters above are optional and has their own individual methods such as `setFavicon`, `setIcons` or `setName`.
 
-### Server Environment Compatibility
-On server env, where `window` and `document` not available, the module creates string versions of html tags so you can create the html document by using the `dump` method:
+Consider also the following methods at the project level:
 ```js
-metapatcher.set('meta', 'name', {name: 'number', content: 'One'})
-metapatcher.set('meta', undefined, {name: 'names', content: 'One'})
-metapatcher.set('meta', undefined, {name: 'names', content: 'Two'})
-
-const dump = metapatcher.dump()
-/*
-<meta id="name" name="msapplication-config" content="none">
-<meta id="name" name="number" content="One">
-<meta name="names" content="One">
-<meta name="names" content="Two">
- */
+metapatcher.setMsApplicationConfig (param: string | MetapatcherMsApplicationConfigAttrs)
+metapatcher.setAppleStatusBarStyle (content: 'default' | 'black' | 'black-translucent' = 'default')
+metapatcher.addPreload (param: string | MetapatcherPreloadAttrs)
+metapatcher.addPrefetch (param: string | MetapatcherPrefetchAttrs)
+metapatcher.addPreconnect (param: string | MetapatcherPreconnectAttrs)
+metapatcher.addDnsPrefetch (param: string | MetapatcherDnsPrefetchAttrs)
 ```
+Use the following methods from page to page:
+```js
+// all parameters are optional
+metapatcher.setPageDetails({
+    title: 'Page | Project Name',
+    description: 'Lorem ipsum.',
+    path: '/en-us/some/page',
+    image: '/media/page-cover.jpg',
+    // both xx_XX and xx-XX syntax are okay for locales
+    locale: 'en_US',
+    canonical: 'https://example.com/en-us/some/page',
+    // both xx_XX and xx-XX syntax are okay for hreflang
+    localVersions: [
+        { hreflang: 'en-US', href: '/en-us/some/page' }, 
+        { hreflang: 'tr-TR', href: '/tr-tr/some/page' }],
+    breadcrumb: [
+        { title: 'Page', url: '/en-us/some/page' },
+        { title: 'Some', url: '/en-us/some' },
+        { title: 'Home', url: '/en-us' }
+    ]
+})
+```
+All of the parameters above are optional and has their own individual methods such as `setPageTitle` or `setBreadcrumb`.
+
+Consider also the following methods at the page level:
+```js
+metapatcher.setMobileVariant (param: string | MetapatcherMobileVariantLinkAttrs)
+```
+
+It will inject appropriate meta tags, link tags, jsonld scripts for specific platforms and devices depending on the enabled features.
+
+### Server-side Usage
+The library has a simple `isDomAvailable` property which get its value upon init by a simple check `typeof document !== 'undefined'`. This property decides if the library should inject tags or collect them in memory. So, when you run the library in a non-browser environment, they will be kept in memory. You can print them all with:
+```js
+metapatcher.dump()
+```
+It returns:
+```html
+<meta id="metapatcher-msapplication-config" name="msapplication-config" content="none">
+<meta id="metapatcher-apple-mobile-web-app-capable" name="apple-mobile-web-app-capable" content="yes">
+<meta id="metapatcher-twitter-card" name="twitter:card" content="summary">
+...
+```
+
+### Low Level Usage, Custom Tags
+There are methods that you can use to set custom meta tags, link tags and jsonld scripts without leaving the control of the library.
+
+Set custom tags:
+```js
+// all parameters are optional
+metapatcher.set('meta', { id: 'my-id', name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' })
+
+metapatcher.setJsonLd('my-script', { abc: 'def' })
+```
+and remove later if neccessary:
+```js
+metapatcher.removeOne('link[id="my-id"]')
+metapatcher.removeMany('link[hreflang]')
+```
+
+### Inject Script and Stylesheet Resources
+```js
+await metapatcher.setScript({ id: 'my-script', src: 'https://cdn.jsdelivr.net/npm/metapatcher@4/dist/index.js', async: true })
+// wait for global "metapatcher" to become available under window
+await metapatcher.setScript({ id: 'my-script', src: 'https://cdn.jsdelivr.net/npm/metapatcher@4/dist/index.js', async: true }, { waitForLoad: 'metapatcher' })
+
+await metapatcher.setStylesheet({ id: 'my-style', href: 'https://example.com/style.css' })
+```
+
+### Supports Boolean Attributes
+Many methods takes a parameter to be used as html attrs and you can always provide a boolean value for any attribute to render it as boolean html element attribute:
+```js
+metapatcher.set('link', { rel: 'manifest', href: '/app.webmanifest', crossorigin: true })
+```
+
+## Contributing
+If you're interested in contributing, read the [CONTRIBUTING.md](https://github.com/muratgozel/muratgozel/blob/main/CONTRIBUTING.md) first, please.
 
 ---
 
@@ -183,4 +147,4 @@ Version management of this repository done by [releaser](https://github.com/mura
 
 Thanks for watching 🐬
 
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F1RFO7)
+[![Support me on Patreon](https://cdn.muratgozel.com.tr/support-me-on-patreon.v1.png)](https://patreon.com/muratgozel?utm_medium=organic&utm_source=github_repo&utm_campaign=github&utm_content=join_link)

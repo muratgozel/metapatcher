@@ -1,23 +1,23 @@
 {
   "name": "metapatcher",
-  "version": "v3.0.3",
-  "description": "Device aware HTML document head management including meta tags, social media tags, icons and JSONLD expressions.",
-  "main": "./dist/browser/cjs/index.js",
-  "module": "./dist/browser/es/index.js",
+  "version": "v4.0.0",
+  "description": "HTML document head management library with convenient api. Manage social media tags, icons, device specific tags and event structured data with html meta tags and JSONLD documents.",
   "type": "module",
-  "types": "types",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "import": "./dist/metapatcher.es.js",
-    "require": "./dist/metapatcher.cjs.js",
-    "default": "./dist/metapatcher.cjs.js",
-    "types": "./types/index.d.ts"
+    "require": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
+    },
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   },
   "scripts": {
-    "precompile": "rm -rf build/*",
-    "compile": "tsc -p tsconfig.json",
-    "prebuild": "rm -rf dist/*",
-    "build": "rollup --config rollup.config.js",
-    "test": "NODE_ENV=test jasmine --config=spec/config/browser.json && jasmine --config=spec/config/node.json"
+    "build": "pkgroll --target=es2020 --target=node16",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "repository": {
     "type": "git",
@@ -37,8 +37,8 @@
     "url": "https://gozel.com.tr"
   },
   "funding": {
-    "type": "ko-fi",
-    "url": "https://ko-fi.com/muratgozel"
+    "type": "patreon",
+    "url": "https://patreon.com/muratgozel"
   },
   "license": "MIT",
   "bugs": {
@@ -46,36 +46,17 @@
   },
   "homepage": "https://github.com/muratgozel/metapatcher#readme",
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.5",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.6",
-    "@rollup/plugin-babel": "^6.0.3",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.2",
-    "@rollup/plugin-terser": "^0.4.1",
+    "@jest/globals": "^29.7.0",
+    "@swc/core": "^1.4.8",
+    "@swc/jest": "^0.2.36",
     "@tsconfig/node20": "^20.1.2",
-    "@tsconfig/strictest": "^2.0.0",
-    "@types/node": "^20.11.5",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
-    "core-js": "^3.18.3",
-    "eslint": "^8.38.0",
-    "eslint-config-standard-with-typescript": "^43.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.1.1",
-    "jasmine": "^5.1.0",
-    "jsdom": "^23.2.0",
-    "jsom": "^1.0.0",
-    "node-releaser": "^2.0.0-beta.4",
-    "rollup": "^4.9.5",
-    "typescript": "^5.0.4"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.15.4",
-    "@babel/runtime-corejs3": "^7.15.4",
-    "dom-scripter": "^5.0.5"
+    "@tsconfig/strictest": "^2.0.3",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "node-releaser": "^2.1.4",
+    "pkgroll": "^2.0.2",
+    "typescript": "^5.4.2",
+    "typescript-eslint": "^7.2.0"
   }
 }

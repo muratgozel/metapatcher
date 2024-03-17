@@ -5,19 +5,17 @@
   ],
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "types",
     "outDir": "build",
     "baseUrl": ".",
-    "module": "esnext",
-    "moduleResolution": "bundler",
     "rootDir": "src",
     "resolveJsonModule": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "typeRoots": [
-      "src",
       "node_modules/@types"
     ],
     "lib": [
-      "es2022",
+      "ESNext",
       "dom"
     ]
   },
