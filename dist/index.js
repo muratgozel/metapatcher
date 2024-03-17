@@ -176,8 +176,8 @@ class Metapatcher {
       this.setThemeColor(params.themeColor);
     if (params.twitterSite)
       this.setTwitterSite(params.twitterSite);
-    if (params.safariPinnedTabs)
-      this.setSafariPinnedTab(params.safariPinnedTabs);
+    if (params.safariPinnedTab)
+      this.setSafariPinnedTab(params.safariPinnedTab);
     if (params.icons)
       this.setIcons(params.icons);
     return this;

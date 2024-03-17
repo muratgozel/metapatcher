@@ -198,7 +198,7 @@ export class Metapatcher {
         if (params.logo && params.url) this.setProjectLogo(params.logo, params.url)
         if (params.themeColor) this.setThemeColor(params.themeColor)
         if (params.twitterSite) this.setTwitterSite(params.twitterSite)
-        if (params.safariPinnedTabs) this.setSafariPinnedTab(params.safariPinnedTabs)
+        if (params.safariPinnedTab) this.setSafariPinnedTab(params.safariPinnedTab)
         if (params.icons) this.setIcons(params.icons)
 
         return this
@@ -767,7 +767,7 @@ export interface MetapatcherProjectParams {
     primaryColor?: string
     backgroundColor?: string
     twitterSite?: string
-    safariPinnedTabs?: MetapatcherSafariPinnedTabAttrs
+    safariPinnedTab?: MetapatcherSafariPinnedTabAttrs
     icons?: string[]
 }
 

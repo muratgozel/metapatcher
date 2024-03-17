@@ -182,7 +182,7 @@ interface MetapatcherProjectParams {
     primaryColor?: string;
     backgroundColor?: string;
     twitterSite?: string;
-    safariPinnedTabs?: MetapatcherSafariPinnedTabAttrs;
+    safariPinnedTab?: MetapatcherSafariPinnedTabAttrs;
     icons?: string[];
 }
 interface MetapatcherMsApplicationConfigAttrs {
