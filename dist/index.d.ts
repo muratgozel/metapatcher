@@ -196,6 +196,7 @@ interface MetapatcherPageParams {
     description?: string;
     path?: string;
     image?: string;
+    robots?: string | MetapatcherRobotsAttrs;
     locale?: string;
     canonical?: string;
     mobileVariant?: string;

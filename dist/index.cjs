@@ -80,6 +80,8 @@ class Metapatcher {
       this.setPageUrl(params.path);
     if (params.image)
       this.setPageImage(params.image);
+    if (params.robots)
+      this.setRobots(params.robots);
     if (params.locale)
       this.setPageLocale(params.locale);
     if (params.canonical)

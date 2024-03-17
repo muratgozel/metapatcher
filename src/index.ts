@@ -90,6 +90,7 @@ export class Metapatcher {
         if (params.description) this.setPageDescription(params.description)
         if (params.path) this.setPageUrl(params.path)
         if (params.image) this.setPageImage(params.image)
+        if (params.robots) this.setRobots(params.robots)
         if (params.locale) this.setPageLocale(params.locale)
         if (params.canonical) this.setCanonical(params.canonical)
         if (params.localVersions) this.setLocalVersions(params.localVersions, params.locale ?? '')
@@ -783,6 +784,7 @@ export interface MetapatcherPageParams {
     description?: string
     path?: string
     image?: string
+    robots?: string | MetapatcherRobotsAttrs
     locale?: string
     canonical?: string
     mobileVariant?: string
