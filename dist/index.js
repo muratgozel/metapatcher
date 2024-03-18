@@ -440,6 +440,9 @@ class Metapatcher {
     attrs = Object.assign({}, { type: "text/javascript" }, attrs);
     settings = Object.assign({}, { location: "headEnd", waitForLoad: "", timeout: 1e4 }, settings);
     return new Promise((resolve, reject) => {
+      if (!this.isDomAvailable) {
+        return resolve(this.setMemory("script", attrs, { void: this.htmlVoidElements.includes("script") }));
+      }
       const timeout = setTimeout(() => {
         reject(new Error("Timeout."));
       }, settings.timeout);
@@ -480,6 +483,9 @@ class Metapatcher {
     attrs = Object.assign({}, { rel: "stylesheet" }, attrs);
     settings = Object.assign({}, { location: "headEnd", timeout: 1e4 }, settings);
     return new Promise((resolve, reject) => {
+      if (!this.isDomAvailable) {
+        return resolve(this.setMemory("link", attrs, { void: this.htmlVoidElements.includes("link") }));
+      }
       const timeout = setTimeout(() => {
         reject(new Error("Timeout."));
       }, settings.timeout);

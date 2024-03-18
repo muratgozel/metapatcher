@@ -529,11 +529,15 @@ export class Metapatcher {
         }
     }
 
-    async setScript (attrs: MetapatcherSetJsAttrs, settings: MetapatcherSetJsSettings = {}): Promise<HTMLScriptElement> {
+    async setScript (attrs: MetapatcherSetJsAttrs, settings: MetapatcherSetJsSettings = {}): Promise<HTMLScriptElement | string> {
         attrs = Object.assign({}, { type: 'text/javascript' }, attrs)
         settings = Object.assign({}, { location: 'headEnd', waitForLoad: '', timeout: 10000 }, settings)
 
         return new Promise((resolve, reject) => {
+            if (!this.isDomAvailable) {
+                return resolve(this.setMemory('script', attrs, { void: this.htmlVoidElements.includes('script') }))
+            }
+
             const timeout = setTimeout(() => {
                 reject(new Error('Timeout.'))
             }, settings.timeout)
@@ -577,11 +581,15 @@ export class Metapatcher {
         })
     }
 
-    async setStylesheet (attrs: MetapatcherSetStylesheetAttrs, settings: MetapatcherSetStylesheetSettings = {}): Promise<HTMLLinkElement> {
+    async setStylesheet (attrs: MetapatcherSetStylesheetAttrs, settings: MetapatcherSetStylesheetSettings = {}): Promise<HTMLLinkElement | string> {
         attrs = Object.assign({}, { rel: 'stylesheet' }, attrs)
         settings = Object.assign({}, { location: 'headEnd', timeout: 10000 }, settings)
 
         return new Promise((resolve, reject) => {
+            if (!this.isDomAvailable) {
+                return resolve(this.setMemory('link', attrs, { void: this.htmlVoidElements.includes('link') }))
+            }
+
             const timeout = setTimeout(() => {
                 reject(new Error('Timeout.'))
             }, settings.timeout)
@@ -649,6 +657,7 @@ export interface MetapatcherSetStylesheetAttrs {
     readonly rel?: 'stylesheet'
     href: string
     media?: string
+    [index: string]: string | boolean
 }
 
 export interface MetapatcherSetStylesheetSettings {
@@ -658,9 +667,9 @@ export interface MetapatcherSetStylesheetSettings {
 
 export interface MetapatcherSetJsAttrs {
     id: string
-    type: string
+    type?: string
     src: string
-    async: boolean
+    async?: boolean
     [index: string]: string | boolean
 }
 

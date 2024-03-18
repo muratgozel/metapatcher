@@ -68,8 +68,8 @@ declare class Metapatcher {
     setDom(tagName: string, attrs: MetapatcherHtmlTagAttrs | undefined, _settings: MetapatcherSetSettings): HTMLElement;
     setMemory(tagName: string, attrs: MetapatcherHtmlTagAttrs | undefined, settings: MetapatcherSetSettings): string;
     setElementAttrs(elem: HTMLElement, attrs?: MetapatcherHtmlTagAttrs): void;
-    setScript(attrs: MetapatcherSetJsAttrs, settings?: MetapatcherSetJsSettings): Promise<HTMLScriptElement>;
-    setStylesheet(attrs: MetapatcherSetStylesheetAttrs, settings?: MetapatcherSetStylesheetSettings): Promise<HTMLLinkElement>;
+    setScript(attrs: MetapatcherSetJsAttrs, settings?: MetapatcherSetJsSettings): Promise<HTMLScriptElement | string>;
+    setStylesheet(attrs: MetapatcherSetStylesheetAttrs, settings?: MetapatcherSetStylesheetSettings): Promise<HTMLLinkElement | string>;
     serializeAttrs(attrs?: MetapatcherHtmlTagAttrs): string;
     findMimeType(path: string): string | undefined;
 }
@@ -80,6 +80,7 @@ interface MetapatcherSetStylesheetAttrs {
     readonly rel?: 'stylesheet';
     href: string;
     media?: string;
+    [index: string]: string | boolean;
 }
 interface MetapatcherSetStylesheetSettings {
     location?: 'headEnd' | 'bodyEnd' | 'bodyStart';
@@ -87,9 +88,9 @@ interface MetapatcherSetStylesheetSettings {
 }
 interface MetapatcherSetJsAttrs {
     id: string;
-    type: string;
+    type?: string;
     src: string;
-    async: boolean;
+    async?: boolean;
     [index: string]: string | boolean;
 }
 interface MetapatcherSetJsSettings {
