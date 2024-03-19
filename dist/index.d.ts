@@ -61,8 +61,8 @@ declare class Metapatcher {
     setMobileVariant(param: string | MetapatcherMobileVariantLinkAttrs): this;
     setLocalVersions(param: MetapatcherLocalVersionLinkAttrs[], currentLang?: string): this;
     setJsonLd(id: string, data: Record<string, never>): HTMLScriptElement | string;
-    removeOne(query: string): this;
-    removeMany(query: string): this;
+    removeOne(tagName: string, attrs: Record<string, string>): this;
+    removeMany(tagName: string, attrs: Record<string, string | boolean>): this;
     dump(): string;
     set(tagName: string, attrs?: MetapatcherHtmlTagAttrs, settings?: MetapatcherSetSettings): string | HTMLElement;
     setDom(tagName: string, attrs: MetapatcherHtmlTagAttrs | undefined, _settings: MetapatcherSetSettings): HTMLElement;

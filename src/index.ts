@@ -65,19 +65,19 @@ export class Metapatcher {
 
             if (this.features.includes('webAppManifest') && this.webAppManifestIconSizes.includes(size)) {
                 const idWam = this.idPrefix + '-icon-' + size + '-wam'
-                this.removeOne(`link[id="${idWam}"]`)
+                this.removeOne('link', { id: idWam })
                 this.set('link', { id: idWam, rel: 'icon', href: url, sizes: size, type: mimeType })
             }
 
             if (this.features.includes('appleTags') && this.appleTouchIconSizes.includes(size)) {
                 const idApple = this.idPrefix + '-icon-' + size + '-apple'
-                this.removeOne(`link[id="${idApple}"]`)
+                this.removeOne('link', { id: idApple })
                 this.set('link', { id: idApple, rel: 'apple-touch-icon', href: url, sizes: size })
             }
 
             if (this.features.includes('msTags') && msTileIconSizes.includes(size)) {
                 const idMs = this.idPrefix + '-icon-' + size + '-ms'
-                this.removeOne(`meta[id="${idMs}"]`)
+                this.removeOne('meta', { id: idMs })
                 this.set('meta', { id: idMs, name: this.msTilesNamingMap[size as keyof typeof this.msTilesNamingMap], content: url })
             }
         }
@@ -104,13 +104,13 @@ export class Metapatcher {
 
         if (this.features.includes('openGraphTags')) {
             const idOg = this.idPrefix + 'og-title'
-            this.removeOne(`meta[id="${idOg}"]`)
+            this.removeOne('meta', { id: idOg })
             this.set('meta', { id: idOg, property: 'og:title', content: title })
         }
 
         if (this.features.includes('twitterTags')) {
             const idTw = this.idPrefix + 'tw-title'
-            this.removeOne(`meta[id="${idTw}"]`)
+            this.removeOne('meta', { id: idTw })
             this.set('meta', { id: idTw, name: 'twitter:title', content: title })
         }
 
@@ -119,18 +119,18 @@ export class Metapatcher {
 
     setPageDescription (description: string): this {
         const id = this.idPrefix + '-description'
-        this.removeOne(`meta[id="${id}"]`)
+        this.removeOne('meta', { id: id })
         this.set('meta', { id, name: 'description', content: description })
 
         if (this.features.includes('openGraphTags')) {
             const idOg = this.idPrefix + '-description-og'
-            this.removeOne(`meta[id="${idOg}"]`)
+            this.removeOne('meta', { id: idOg })
             this.set('meta', { id: idOg, property: 'og:description', content: description })
         }
 
         if (this.features.includes('twitterTags')) {
             const idTw = this.idPrefix + '-description-tw'
-            this.removeOne(`meta[id="${idTw}"]`)
+            this.removeOne('meta', { id: idTw })
             this.set('meta', { id, name: 'twitter:description', content: description })
         }
 
@@ -140,7 +140,7 @@ export class Metapatcher {
     setPageUrl (url: string): this {
         if (this.features.includes('openGraphTags')) {
             const idOg = this.idPrefix + '-url-og'
-            this.removeOne(`meta[id="${idOg}"]`)
+            this.removeOne('meta', { id: idOg })
             this.set('meta', { id: idOg, property: 'og:url', content: url })
         }
 
@@ -152,17 +152,17 @@ export class Metapatcher {
 
         if (this.features.includes('openGraphTags')) {
             const idOg = this.idPrefix + '-image-og'
-            this.removeOne(`meta[id="${idOg}"]`)
+            this.removeOne('meta', { id: idOg })
             this.set('meta', { id: idOg, property: 'og:image', content: img.path })
 
             const idOgw = this.idPrefix + '-image-w-og'
-            this.removeOne(`meta[id="${idOgw}"]`)
+            this.removeOne('meta', { id: idOgw })
             if (img.width) {
                 this.set('meta', { id: idOgw, property: 'og:image:width', content: img.width.toString() })
             }
 
             const idOgh = this.idPrefix + '-image-h-og'
-            this.removeOne(`meta[id="${idOgh}"]`)
+            this.removeOne('meta', { id: idOgh })
             if (img.height) {
                 this.set('meta', { id: idOgh, property: 'og:image:height', content: img.height.toString() })
             }
@@ -170,7 +170,7 @@ export class Metapatcher {
 
         if (this.features.includes('twitterTags')) {
             const idTw = this.idPrefix + '-image-tw'
-            this.removeOne(`meta[id="${idTw}"]`)
+            this.removeOne('meta', { id: idTw })
             this.set('meta', { id: idTw, property: 'twitter:image', content: img.path })
         }
 
@@ -186,7 +186,7 @@ export class Metapatcher {
 
         if (this.features.includes('openGraphTags')) {
             const id = this.idPrefix + '-locale-og'
-            this.removeOne(`meta[id="${id}"]`)
+            this.removeOne('meta', { id: id })
             this.set('meta', { id, property: 'og:locale', content: locale })
         }
     }
@@ -207,17 +207,17 @@ export class Metapatcher {
 
     setProjectName (name: string): this {
         const idMs = this.idPrefix + '-project-name'
-        this.removeOne(`meta[id="${idMs}"]`)
+        this.removeOne('meta', { id: idMs })
         this.set('meta', { id: idMs, name: 'application-name', content: name })
 
         if (this.features.includes('openGraphTags')) {
             const idOg = this.idPrefix + '-project-name-og'
-            this.removeOne(`meta[id="${idOg}"]`)
+            this.removeOne('meta', { id: idOg })
             this.set('meta', { id: idOg, property: 'og:site_name', content: name })
         }
         else if (this.features.includes('appleTags')) {
             const idApple = this.idPrefix + '-project-name-apple'
-            this.removeOne(`meta[id="${idApple}"]`)
+            this.removeOne('meta', { id: idApple })
             this.set('meta', { id: idApple, name: 'apple-mobile-web-app-title', content: name })
         }
 
@@ -227,7 +227,7 @@ export class Metapatcher {
     setProjectUrl (url: string): this {
         if (this.features.includes('msTags')) {
             const id = this.idPrefix + '-project-url'
-            this.removeOne(`meta[id="${id}"]`)
+            this.removeOne('meta', { id: id })
             this.set('meta', { id, name: 'msapplication-starturl', content: url })
         }
         return this
@@ -243,7 +243,7 @@ export class Metapatcher {
             }
             const _data = JSON.stringify(json)
 
-            this.removeOne(`script[id="${id}"]`)
+            this.removeOne('script', { id: id })
 
             return this.isDomAvailable ? this.setJsonLdDom(id, _data) : this.setJsonLdMemory(id, _data)
         }
@@ -253,13 +253,13 @@ export class Metapatcher {
 
     setThemeColor (colorHexCode: string): this {
         const id = this.idPrefix + '-theme-color'
-        this.removeOne(`meta[id="${id}"]`)
+        this.removeOne('meta', { id: id })
         this.set('meta', { id, name: 'theme-color', content: colorHexCode })
 
         if (this.features.includes('msTags')) {
-            const id = this.idPrefix + '-theme-color-ms'
-            this.removeOne(`meta[id="${id}"]`)
-            this.set('meta', { id, name: 'msapplication-TileColor', content: colorHexCode })
+            const idMs = this.idPrefix + '-theme-color-ms'
+            this.removeOne('meta', { id: idMs })
+            this.set('meta', { id: idMs, name: 'msapplication-TileColor', content: colorHexCode })
         }
 
         return this
@@ -267,7 +267,7 @@ export class Metapatcher {
 
     setTwitterSite (username: string): this {
         const id = this.idPrefix + '-twitter-site'
-        this.removeOne(`meta[id="${id}"]`)
+        this.removeOne('meta', { id: id })
         this.set('meta', { id, name: 'twitter:site', content: username })
         return this
     }
@@ -278,7 +278,7 @@ export class Metapatcher {
         const attrs: MetapatcherDnsPrefetchAttrs = typeof param === 'string'
             ? { id, rel: 'dns-prefetch', href: param }
             : Object.assign({}, param, { id, rel: 'dns-prefetch' })
-        this.removeOne(`link[rel="dns-prefetch"][href="${attrs.href}"]`)
+        this.removeOne('link', { rel: 'dns-prefetch', href: attrs.href })
         this.set('link', attrs)
         return this
     }
@@ -289,7 +289,7 @@ export class Metapatcher {
         const attrs: MetapatcherPreconnectAttrs = typeof param === 'string'
             ? { id, rel: 'preconnect', href: param }
             : Object.assign({}, param, { id, rel: 'preconnect' })
-        this.removeOne(`link[rel="preconnect"][href="${attrs.href}"]`)
+        this.removeOne('link', { rel: 'preconnect', href: attrs.href })
         this.set('link', attrs)
         return this
     }
@@ -300,7 +300,7 @@ export class Metapatcher {
         const attrs: MetapatcherPrefetchAttrs = typeof param === 'string'
             ? { id, rel: 'prefetch', href: param }
             : Object.assign({}, param, { id, rel: 'prefetch' })
-        this.removeOne(`link[rel="prefetch"][href="${attrs.href}"]`)
+        this.removeOne('link', { rel: 'prefetch', href: attrs.href })
         this.set('link', attrs)
         return this
     }
@@ -311,7 +311,7 @@ export class Metapatcher {
         const attrs: MetapatcherPreloadAttrs = typeof param === 'string'
             ? { id, rel: 'preload', href: param }
             : Object.assign({}, param, { id, rel: 'preload' })
-        this.removeOne(`link[rel="preload"][href="${attrs.href}"]`)
+        this.removeOne('link', { rel: 'preload', href: attrs.href })
         this.set('link', attrs)
         return this
     }
@@ -321,7 +321,7 @@ export class Metapatcher {
         const attrs: MetapatcherRobotsAttrs = typeof param === 'string'
             ? { id, name: 'robots', content: param }
             : Object.assign({}, param, { id, name: 'robots' })
-        this.removeOne(`meta[id="${id}"]`)
+        this.removeOne('meta', { id })
         this.set('meta', attrs)
         return this
     }
@@ -341,7 +341,7 @@ export class Metapatcher {
             ? { id, rel: 'shortcut icon', href: param }
             : Object.assign({}, param, { id, rel: 'shortcut icon' })
 
-        this.removeOne(`link[id="${id}"]`)
+        this.removeOne('link', { id })
         this.set('link', attrs)
         return this
     }
@@ -351,7 +351,7 @@ export class Metapatcher {
         const attrs: MetapatcherMsApplicationConfigAttrs = typeof param === 'string'
             ? { id, name: 'msapplication-config', content: param }
             : Object.assign({}, param, { id, name: 'msapplication-config' })
-        this.removeOne(`meta[id="${id}"]`)
+        this.removeOne('meta', { id })
         this.set('meta', attrs)
         return this
     }
@@ -359,14 +359,14 @@ export class Metapatcher {
     setSafariPinnedTab(attrs: MetapatcherSafariPinnedTabAttrs): this {
         const id = this.idPrefix + '-safari-pinned-tab'
         const _attrs: MetapatcherSafariPinnedTabAttrs = Object.assign({}, attrs, { id, rel: 'mask-icon' })
-        this.removeOne(`link[id="${id}"]`)
+        this.removeOne('link', { id })
         this.set('link', _attrs)
         return this
     }
 
     setAppleStatusBarStyle (content: 'default' | 'black' | 'black-translucent' = 'default'): this {
         const id = this.idPrefix + '-apple-status-bar-style'
-        this.removeOne(`link[id="${id}"]`)
+        this.removeOne('meta', { id })
         this.set('meta', { id, name: 'apple-mobile-web-app-status-bar-style', content })
         return this
     }
@@ -386,7 +386,7 @@ export class Metapatcher {
         }
         const _data = JSON.stringify(json)
 
-        this.removeOne(`script[id="${id}"]`)
+        this.removeOne('script', { id })
 
         return this.isDomAvailable ? this.setJsonLdDom(id, _data) : this.setJsonLdMemory(id, _data)
     }
@@ -414,7 +414,7 @@ export class Metapatcher {
             ? { id, rel: 'canonical', href: param }
             : Object.assign({}, param, { id, rel: 'canonical' })
 
-        this.removeOne(`link[id="${id}"]`)
+        this.removeOne('link', { id })
         this.set('link', attrs)
 
         return this
@@ -426,19 +426,19 @@ export class Metapatcher {
             ? { id, rel: 'alternate', href: param, media: 'only screen and (max-width: 640px)' }
             : Object.assign({}, param, { id, rel: 'alternate' })
 
-        this.removeOne(`link[id="${id}"]`)
+        this.removeOne('link', { id })
         this.set('link', attrs)
 
         return this
     }
 
     setLocalVersions (param: MetapatcherLocalVersionLinkAttrs[], currentLang = ''): this {
-        this.removeMany('link[rel="alternate"][hreflang]')
+        this.removeMany('link', { rel: 'alternate', hreflang: true })
 
         if (this.features.includes('openGraphTags')) {
             currentLang = currentLang.replace('_', '-')
-            this.removeMany('meta[property="og:locale:alternate"]')
-            this.removeOne('meta[property="og:locale"]')
+            this.removeMany('meta', { property: 'og:locale:alternate' })
+            this.removeOne('meta', { property: 'og:locale' })
         }
 
         for (const _attrs of param) {
@@ -461,12 +461,23 @@ export class Metapatcher {
 
     setJsonLd (id: string, data: Record<string, never>): HTMLScriptElement | string {
         const str = JSON.stringify(data)
-        this.removeOne(`script[id="${id}"]`)
+        this.removeOne('script', { id })
         return this.isDomAvailable ? this.setJsonLdDom(id, str) : this.setJsonLdMemory(id, str)
     }
 
-    removeOne (query: string): this {
-        if (!this.isDomAvailable) return this
+    removeOne (tagName: string, attrs: Record<string, string>): this {
+        if (!this.isDomAvailable) {
+            const queries = [`<${tagName}`].concat(Object.keys(attrs).map((key) => `${key}="${attrs[key]}"`))
+            this.memory = this.memory.filter((item) => !queries.every((query) => item.includes(query)))
+            return this
+        }
+
+        const params = Object.keys(attrs).reduce((memo: string, key: string) => {
+            memo += `[${key}="${attrs[key]}"]`
+            return memo
+        }, '')
+        const query = `${tagName}${params}`
+
         const elem = document.head.querySelector(query)
         if (elem) {
             elem.parentNode!.removeChild(elem)
@@ -474,8 +485,19 @@ export class Metapatcher {
         return this
     }
 
-    removeMany (query: string): this {
-        if (!this.isDomAvailable) return this
+    removeMany (tagName: string, attrs: Record<string, string | boolean>): this {
+        if (!this.isDomAvailable) {
+            const queries = [`<${tagName}`].concat(Object.keys(attrs).map((key) => typeof attrs[key] === 'boolean' ? `${key}` : `${key}="${attrs[key]}"`))
+            this.memory = this.memory.filter((item) => !queries.every((query) => item.includes(query)))
+            return this
+        }
+
+        const params = Object.keys(attrs).reduce((memo: string, key: string) => {
+            memo += typeof attrs[key] === 'boolean' ? `[${key}]` : `[${key}="${attrs[key]}"]`
+            return memo
+        }, '')
+        const query = `${tagName}${params}`
+
         const elems = document.head.querySelectorAll(query)
         if (elems && elems.length > 0) {
             elems.forEach((elem) => {

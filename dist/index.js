@@ -53,17 +53,17 @@ class Metapatcher {
         continue;
       if (this.features.includes("webAppManifest") && this.webAppManifestIconSizes.includes(size)) {
         const idWam = this.idPrefix + "-icon-" + size + "-wam";
-        this.removeOne(`link[id="${idWam}"]`);
+        this.removeOne("link", { id: idWam });
         this.set("link", { id: idWam, rel: "icon", href: url, sizes: size, type: mimeType });
       }
       if (this.features.includes("appleTags") && this.appleTouchIconSizes.includes(size)) {
         const idApple = this.idPrefix + "-icon-" + size + "-apple";
-        this.removeOne(`link[id="${idApple}"]`);
+        this.removeOne("link", { id: idApple });
         this.set("link", { id: idApple, rel: "apple-touch-icon", href: url, sizes: size });
       }
       if (this.features.includes("msTags") && msTileIconSizes.includes(size)) {
         const idMs = this.idPrefix + "-icon-" + size + "-ms";
-        this.removeOne(`meta[id="${idMs}"]`);
+        this.removeOne("meta", { id: idMs });
         this.set("meta", { id: idMs, name: this.msTilesNamingMap[size], content: url });
       }
     }
@@ -94,28 +94,28 @@ class Metapatcher {
     this.setDocumentTitle(title);
     if (this.features.includes("openGraphTags")) {
       const idOg = this.idPrefix + "og-title";
-      this.removeOne(`meta[id="${idOg}"]`);
+      this.removeOne("meta", { id: idOg });
       this.set("meta", { id: idOg, property: "og:title", content: title });
     }
     if (this.features.includes("twitterTags")) {
       const idTw = this.idPrefix + "tw-title";
-      this.removeOne(`meta[id="${idTw}"]`);
+      this.removeOne("meta", { id: idTw });
       this.set("meta", { id: idTw, name: "twitter:title", content: title });
     }
     return this;
   }
   setPageDescription(description) {
     const id = this.idPrefix + "-description";
-    this.removeOne(`meta[id="${id}"]`);
+    this.removeOne("meta", { id });
     this.set("meta", { id, name: "description", content: description });
     if (this.features.includes("openGraphTags")) {
       const idOg = this.idPrefix + "-description-og";
-      this.removeOne(`meta[id="${idOg}"]`);
+      this.removeOne("meta", { id: idOg });
       this.set("meta", { id: idOg, property: "og:description", content: description });
     }
     if (this.features.includes("twitterTags")) {
       const idTw = this.idPrefix + "-description-tw";
-      this.removeOne(`meta[id="${idTw}"]`);
+      this.removeOne("meta", { id: idTw });
       this.set("meta", { id, name: "twitter:description", content: description });
     }
     return this;
@@ -123,7 +123,7 @@ class Metapatcher {
   setPageUrl(url) {
     if (this.features.includes("openGraphTags")) {
       const idOg = this.idPrefix + "-url-og";
-      this.removeOne(`meta[id="${idOg}"]`);
+      this.removeOne("meta", { id: idOg });
       this.set("meta", { id: idOg, property: "og:url", content: url });
     }
     return this;
@@ -132,22 +132,22 @@ class Metapatcher {
     const img = typeof param === "string" ? { path: param } : param;
     if (this.features.includes("openGraphTags")) {
       const idOg = this.idPrefix + "-image-og";
-      this.removeOne(`meta[id="${idOg}"]`);
+      this.removeOne("meta", { id: idOg });
       this.set("meta", { id: idOg, property: "og:image", content: img.path });
       const idOgw = this.idPrefix + "-image-w-og";
-      this.removeOne(`meta[id="${idOgw}"]`);
+      this.removeOne("meta", { id: idOgw });
       if (img.width) {
         this.set("meta", { id: idOgw, property: "og:image:width", content: img.width.toString() });
       }
       const idOgh = this.idPrefix + "-image-h-og";
-      this.removeOne(`meta[id="${idOgh}"]`);
+      this.removeOne("meta", { id: idOgh });
       if (img.height) {
         this.set("meta", { id: idOgh, property: "og:image:height", content: img.height.toString() });
       }
     }
     if (this.features.includes("twitterTags")) {
       const idTw = this.idPrefix + "-image-tw";
-      this.removeOne(`meta[id="${idTw}"]`);
+      this.removeOne("meta", { id: idTw });
       this.set("meta", { id: idTw, property: "twitter:image", content: img.path });
     }
     return this;
@@ -159,7 +159,7 @@ class Metapatcher {
     }
     if (this.features.includes("openGraphTags")) {
       const id = this.idPrefix + "-locale-og";
-      this.removeOne(`meta[id="${id}"]`);
+      this.removeOne("meta", { id });
       this.set("meta", { id, property: "og:locale", content: locale });
     }
   }
@@ -186,15 +186,15 @@ class Metapatcher {
   }
   setProjectName(name) {
     const idMs = this.idPrefix + "-project-name";
-    this.removeOne(`meta[id="${idMs}"]`);
+    this.removeOne("meta", { id: idMs });
     this.set("meta", { id: idMs, name: "application-name", content: name });
     if (this.features.includes("openGraphTags")) {
       const idOg = this.idPrefix + "-project-name-og";
-      this.removeOne(`meta[id="${idOg}"]`);
+      this.removeOne("meta", { id: idOg });
       this.set("meta", { id: idOg, property: "og:site_name", content: name });
     } else if (this.features.includes("appleTags")) {
       const idApple = this.idPrefix + "-project-name-apple";
-      this.removeOne(`meta[id="${idApple}"]`);
+      this.removeOne("meta", { id: idApple });
       this.set("meta", { id: idApple, name: "apple-mobile-web-app-title", content: name });
     }
     return this;
@@ -202,7 +202,7 @@ class Metapatcher {
   setProjectUrl(url) {
     if (this.features.includes("msTags")) {
       const id = this.idPrefix + "-project-url";
-      this.removeOne(`meta[id="${id}"]`);
+      this.removeOne("meta", { id });
       this.set("meta", { id, name: "msapplication-starturl", content: url });
     }
     return this;
@@ -216,25 +216,25 @@ class Metapatcher {
         url
       };
       const _data = JSON.stringify(json);
-      this.removeOne(`script[id="${id}"]`);
+      this.removeOne("script", { id });
       return this.isDomAvailable ? this.setJsonLdDom(id, _data) : this.setJsonLdMemory(id, _data);
     }
     return "";
   }
   setThemeColor(colorHexCode) {
     const id = this.idPrefix + "-theme-color";
-    this.removeOne(`meta[id="${id}"]`);
+    this.removeOne("meta", { id });
     this.set("meta", { id, name: "theme-color", content: colorHexCode });
     if (this.features.includes("msTags")) {
-      const id2 = this.idPrefix + "-theme-color-ms";
-      this.removeOne(`meta[id="${id2}"]`);
-      this.set("meta", { id: id2, name: "msapplication-TileColor", content: colorHexCode });
+      const idMs = this.idPrefix + "-theme-color-ms";
+      this.removeOne("meta", { id: idMs });
+      this.set("meta", { id: idMs, name: "msapplication-TileColor", content: colorHexCode });
     }
     return this;
   }
   setTwitterSite(username) {
     const id = this.idPrefix + "-twitter-site";
-    this.removeOne(`meta[id="${id}"]`);
+    this.removeOne("meta", { id });
     this.set("meta", { id, name: "twitter:site", content: username });
     return this;
   }
@@ -242,7 +242,7 @@ class Metapatcher {
     const id = this.idPrefix + "-dns-prefetch-" + this.idCounters.dnsPrefetch.toString();
     this.idCounters.dnsPrefetch += 1;
     const attrs = typeof param === "string" ? { id, rel: "dns-prefetch", href: param } : Object.assign({}, param, { id, rel: "dns-prefetch" });
-    this.removeOne(`link[rel="dns-prefetch"][href="${attrs.href}"]`);
+    this.removeOne("link", { rel: "dns-prefetch", href: attrs.href });
     this.set("link", attrs);
     return this;
   }
@@ -250,7 +250,7 @@ class Metapatcher {
     const id = this.idPrefix + "-preconnect-" + this.idCounters.preconnect.toString();
     this.idCounters.preconnect += 1;
     const attrs = typeof param === "string" ? { id, rel: "preconnect", href: param } : Object.assign({}, param, { id, rel: "preconnect" });
-    this.removeOne(`link[rel="preconnect"][href="${attrs.href}"]`);
+    this.removeOne("link", { rel: "preconnect", href: attrs.href });
     this.set("link", attrs);
     return this;
   }
@@ -258,7 +258,7 @@ class Metapatcher {
     const id = this.idPrefix + "-prefetch-" + this.idCounters.prefetch.toString();
     this.idCounters.prefetch += 1;
     const attrs = typeof param === "string" ? { id, rel: "prefetch", href: param } : Object.assign({}, param, { id, rel: "prefetch" });
-    this.removeOne(`link[rel="prefetch"][href="${attrs.href}"]`);
+    this.removeOne("link", { rel: "prefetch", href: attrs.href });
     this.set("link", attrs);
     return this;
   }
@@ -266,14 +266,14 @@ class Metapatcher {
     const id = this.idPrefix + "-preload-" + this.idCounters.preload.toString();
     this.idCounters.preload += 1;
     const attrs = typeof param === "string" ? { id, rel: "preload", href: param } : Object.assign({}, param, { id, rel: "preload" });
-    this.removeOne(`link[rel="preload"][href="${attrs.href}"]`);
+    this.removeOne("link", { rel: "preload", href: attrs.href });
     this.set("link", attrs);
     return this;
   }
   setRobots(param) {
     const id = this.idPrefix + "-robots";
     const attrs = typeof param === "string" ? { id, name: "robots", content: param } : Object.assign({}, param, { id, name: "robots" });
-    this.removeOne(`meta[id="${id}"]`);
+    this.removeOne("meta", { id });
     this.set("meta", attrs);
     return this;
   }
@@ -290,27 +290,27 @@ class Metapatcher {
       return this;
     const id = this.idPrefix + "-favicon";
     const attrs = typeof param === "string" ? { id, rel: "shortcut icon", href: param } : Object.assign({}, param, { id, rel: "shortcut icon" });
-    this.removeOne(`link[id="${id}"]`);
+    this.removeOne("link", { id });
     this.set("link", attrs);
     return this;
   }
   setMsApplicationConfig(param) {
     const id = this.idPrefix + "-msapplication-config";
     const attrs = typeof param === "string" ? { id, name: "msapplication-config", content: param } : Object.assign({}, param, { id, name: "msapplication-config" });
-    this.removeOne(`meta[id="${id}"]`);
+    this.removeOne("meta", { id });
     this.set("meta", attrs);
     return this;
   }
   setSafariPinnedTab(attrs) {
     const id = this.idPrefix + "-safari-pinned-tab";
     const _attrs = Object.assign({}, attrs, { id, rel: "mask-icon" });
-    this.removeOne(`link[id="${id}"]`);
+    this.removeOne("link", { id });
     this.set("link", _attrs);
     return this;
   }
   setAppleStatusBarStyle(content = "default") {
     const id = this.idPrefix + "-apple-status-bar-style";
-    this.removeOne(`link[id="${id}"]`);
+    this.removeOne("meta", { id });
     this.set("meta", { id, name: "apple-mobile-web-app-status-bar-style", content });
     return this;
   }
@@ -328,7 +328,7 @@ class Metapatcher {
       }))
     };
     const _data = JSON.stringify(json);
-    this.removeOne(`script[id="${id}"]`);
+    this.removeOne("script", { id });
     return this.isDomAvailable ? this.setJsonLdDom(id, _data) : this.setJsonLdMemory(id, _data);
   }
   setJsonLdDom(id, data) {
@@ -347,23 +347,23 @@ class Metapatcher {
   setCanonical(param) {
     const id = this.idPrefix + "-canonical";
     const attrs = typeof param === "string" ? { id, rel: "canonical", href: param } : Object.assign({}, param, { id, rel: "canonical" });
-    this.removeOne(`link[id="${id}"]`);
+    this.removeOne("link", { id });
     this.set("link", attrs);
     return this;
   }
   setMobileVariant(param) {
     const id = this.idPrefix + "-mobile-variant";
     const attrs = typeof param === "string" ? { id, rel: "alternate", href: param, media: "only screen and (max-width: 640px)" } : Object.assign({}, param, { id, rel: "alternate" });
-    this.removeOne(`link[id="${id}"]`);
+    this.removeOne("link", { id });
     this.set("link", attrs);
     return this;
   }
   setLocalVersions(param, currentLang = "") {
-    this.removeMany('link[rel="alternate"][hreflang]');
+    this.removeMany("link", { rel: "alternate", hreflang: true });
     if (this.features.includes("openGraphTags")) {
       currentLang = currentLang.replace("_", "-");
-      this.removeMany('meta[property="og:locale:alternate"]');
-      this.removeOne('meta[property="og:locale"]');
+      this.removeMany("meta", { property: "og:locale:alternate" });
+      this.removeOne("meta", { property: "og:locale" });
     }
     for (const _attrs of param) {
       const id = this.idPrefix + "-local-version-" + _attrs.hreflang;
@@ -381,21 +381,37 @@ class Metapatcher {
   }
   setJsonLd(id, data) {
     const str = JSON.stringify(data);
-    this.removeOne(`script[id="${id}"]`);
+    this.removeOne("script", { id });
     return this.isDomAvailable ? this.setJsonLdDom(id, str) : this.setJsonLdMemory(id, str);
   }
-  removeOne(query) {
-    if (!this.isDomAvailable)
+  removeOne(tagName, attrs) {
+    if (!this.isDomAvailable) {
+      const queries = [`<${tagName}`].concat(Object.keys(attrs).map((key) => `${key}="${attrs[key]}"`));
+      this.memory = this.memory.filter((item) => !queries.every((query2) => item.includes(query2)));
       return this;
+    }
+    const params = Object.keys(attrs).reduce((memo, key) => {
+      memo += `[${key}="${attrs[key]}"]`;
+      return memo;
+    }, "");
+    const query = `${tagName}${params}`;
     const elem = document.head.querySelector(query);
     if (elem) {
       elem.parentNode.removeChild(elem);
     }
     return this;
   }
-  removeMany(query) {
-    if (!this.isDomAvailable)
+  removeMany(tagName, attrs) {
+    if (!this.isDomAvailable) {
+      const queries = [`<${tagName}`].concat(Object.keys(attrs).map((key) => typeof attrs[key] === "boolean" ? `${key}` : `${key}="${attrs[key]}"`));
+      this.memory = this.memory.filter((item) => !queries.every((query2) => item.includes(query2)));
       return this;
+    }
+    const params = Object.keys(attrs).reduce((memo, key) => {
+      memo += typeof attrs[key] === "boolean" ? `[${key}]` : `[${key}="${attrs[key]}"]`;
+      return memo;
+    }, "");
+    const query = `${tagName}${params}`;
     const elems = document.head.querySelectorAll(query);
     if (elems && elems.length > 0) {
       elems.forEach((elem) => {
