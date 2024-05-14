@@ -508,11 +508,9 @@ export class Metapatcher {
     }
 
     dump(): string {
-        const data = this.memory.join('\n')
+        if (this.isDomAvailable) return ''
 
-        if (this.isDomAvailable) this.memory = []
-
-        return data
+        return this.memory.join('\n')
     }
 
     set (tagName: string, attrs: MetapatcherHtmlTagAttrs = {}, settings?: MetapatcherSetSettings): string | HTMLElement {

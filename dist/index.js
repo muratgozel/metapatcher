@@ -421,9 +421,9 @@ class Metapatcher {
     return this;
   }
   dump() {
-    const data = this.memory.join("\n");
-    this.memory = [];
-    return data;
+    if (this.isDomAvailable)
+      return "";
+    return this.memory.join("\n");
   }
   set(tagName, attrs = {}, settings) {
     tagName = tagName.toLowerCase();
