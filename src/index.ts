@@ -510,7 +510,7 @@ export class Metapatcher {
     dump(): string {
         const data = this.memory.join('\n')
 
-        this.memory = []
+        if (this.isDomAvailable) this.memory = []
 
         return data
     }
