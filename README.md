@@ -28,7 +28,7 @@ or inject with script tag:
 ### Configure
 All features mentioned above are enabled by default. You can disable some of them:
 ```js
-metapatcher.configure(['openGraphTags', 'structuredData', 'twitterTags', 'msTags', 'appleTags'])
+metapatcher.configure(['openGraphTags', 'structuredData', 'twitterTags', 'msTags', 'appleTags'], { idPrefix: 'metapatcher' })
 // configure also does some injections so you gonna call it anyway
 metapatcher.configure()
 ```

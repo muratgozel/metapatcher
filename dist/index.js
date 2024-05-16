@@ -31,7 +31,9 @@ class Metapatcher {
     this.features = ["structuredData", "msTags", "appleTags", "openGraphTags", "twitterTags", "webAppManifest"];
     this.setMsApplicationConfig("none");
   }
-  configure(features) {
+  configure(features, settings) {
+    if (settings == null ? void 0 : settings.idPrefix)
+      this.idPrefix = settings.idPrefix;
     if (features)
       this.features = features;
     if (this.features.includes("appleTags")) {

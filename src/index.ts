@@ -40,7 +40,8 @@ export class Metapatcher {
         this.setMsApplicationConfig('none')
     }
 
-    configure (features?: MetapatcherFeatures[]) {
+    configure (features?: MetapatcherFeatures[], settings?: MetapatcherSettings) {
+        if (settings?.idPrefix) this.idPrefix = settings.idPrefix
         if (features) this.features = features
 
         if (this.features.includes('appleTags')) {
@@ -669,6 +670,10 @@ export type MetapatcherFeatures = 'structuredData' |
     'appleTags' |
     'openGraphTags' |
     'twitterTags'
+
+export interface MetapatcherSettings {
+    idPrefix?: string
+}
 
 export type MetapatcherHtmlTagAttrs = Record<string, string | boolean>
 

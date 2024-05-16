@@ -30,7 +30,7 @@ declare class Metapatcher {
         '310x150': string;
     };
     constructor();
-    configure(features?: MetapatcherFeatures[]): void;
+    configure(features?: MetapatcherFeatures[], settings?: MetapatcherSettings): void;
     setIcons(list: string[]): this;
     setPageDetails(params: MetapatcherPageParams): this;
     setPageTitle(title: string): this;
@@ -74,6 +74,9 @@ declare class Metapatcher {
     findMimeType(path: string): string | undefined;
 }
 type MetapatcherFeatures = 'structuredData' | 'webAppManifest' | 'msTags' | 'appleTags' | 'openGraphTags' | 'twitterTags';
+interface MetapatcherSettings {
+    idPrefix?: string;
+}
 type MetapatcherHtmlTagAttrs = Record<string, string | boolean>;
 interface MetapatcherSetStylesheetAttrs {
     id: string;
@@ -211,4 +214,4 @@ interface MetapatcherPageImage {
 }
 declare const metapatcher: Metapatcher;
 
-export { Metapatcher, type MetapatcherBreadcrumb, type MetapatcherCanonicalLinkAttrs, type MetapatcherDnsPrefetchAttrs, type MetapatcherFaviconAttrs, type MetapatcherFeatures, type MetapatcherHtmlTagAttrs, type MetapatcherLocalVersionLinkAttrs, type MetapatcherMobileVariantLinkAttrs, type MetapatcherMsApplicationConfigAttrs, type MetapatcherPageImage, type MetapatcherPageParams, type MetapatcherPreconnectAttrs, type MetapatcherPrefetchAttrs, type MetapatcherPreloadAs, type MetapatcherPreloadAttrs, type MetapatcherProjectParams, type MetapatcherRobotsAttrs, type MetapatcherSafariPinnedTabAttrs, type MetapatcherSetJsAttrs, type MetapatcherSetJsSettings, type MetapatcherSetSettings, type MetapatcherSetStylesheetAttrs, type MetapatcherSetStylesheetSettings, metapatcher };
+export { Metapatcher, type MetapatcherBreadcrumb, type MetapatcherCanonicalLinkAttrs, type MetapatcherDnsPrefetchAttrs, type MetapatcherFaviconAttrs, type MetapatcherFeatures, type MetapatcherHtmlTagAttrs, type MetapatcherLocalVersionLinkAttrs, type MetapatcherMobileVariantLinkAttrs, type MetapatcherMsApplicationConfigAttrs, type MetapatcherPageImage, type MetapatcherPageParams, type MetapatcherPreconnectAttrs, type MetapatcherPrefetchAttrs, type MetapatcherPreloadAs, type MetapatcherPreloadAttrs, type MetapatcherProjectParams, type MetapatcherRobotsAttrs, type MetapatcherSafariPinnedTabAttrs, type MetapatcherSetJsAttrs, type MetapatcherSetJsSettings, type MetapatcherSetSettings, type MetapatcherSetStylesheetAttrs, type MetapatcherSetStylesheetSettings, type MetapatcherSettings, metapatcher };
