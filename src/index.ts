@@ -132,7 +132,7 @@ export class Metapatcher {
         if (this.features.includes('twitterTags')) {
             const idTw = this.idPrefix + '-description-tw'
             this.removeOne('meta', { id: idTw })
-            this.set('meta', { idTw, name: 'twitter:description', content: description })
+            this.set('meta', { id: idTw, name: 'twitter:description', content: description })
         }
 
         return this
