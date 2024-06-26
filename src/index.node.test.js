@@ -23,3 +23,10 @@ test.only('keep memory on dump', () => {
     expect(metapatcher.dump()).toContain('<link id="metapatcher-canonical" rel="canonical" href="https://example.com" />')
     expect(metapatcher.memory).toContain('<link id="metapatcher-canonical" rel="canonical" href="https://example.com" />')
 })
+
+test.only('flush memory', () => {
+    metapatcher.setCanonical('https://example.com')
+    expect(metapatcher.dump()).toContain('<link id="metapatcher-canonical" rel="canonical" href="https://example.com" />')
+    metapatcher.flushMemory()
+    expect(metapatcher.memory.length).toBe(0)
+})

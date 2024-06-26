@@ -514,6 +514,11 @@ export class Metapatcher {
         return this.memory.join('\n')
     }
 
+    flushMemory(): this {
+        this.memory = []
+        return this
+    }
+
     set (tagName: string, attrs: MetapatcherHtmlTagAttrs = {}, settings?: MetapatcherSetSettings): string | HTMLElement {
         tagName = tagName.toLowerCase()
 

@@ -64,6 +64,7 @@ declare class Metapatcher {
     removeOne(tagName: string, attrs: Record<string, string>): this;
     removeMany(tagName: string, attrs: Record<string, string | boolean>): this;
     dump(): string;
+    flushMemory(): this;
     set(tagName: string, attrs?: MetapatcherHtmlTagAttrs, settings?: MetapatcherSetSettings): string | HTMLElement;
     setDom(tagName: string, attrs: MetapatcherHtmlTagAttrs | undefined, _settings: MetapatcherSetSettings): HTMLElement;
     setMemory(tagName: string, attrs: MetapatcherHtmlTagAttrs | undefined, settings: MetapatcherSetSettings): string;

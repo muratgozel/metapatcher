@@ -1,6 +1,6 @@
 {
   "name": "metapatcher",
-  "version": "v4.1.0",
+  "version": "v4.2.0",
   "description": "HTML document head management library with convenient api. Manage social media tags, icons, device specific tags and event structured data with html meta tags and JSONLD documents.",
   "type": "module",
   "main": "./dist/index.js",
@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "build": "pkgroll --target=es2020 --target=node16",
+    "build": "pkgroll --target=es2020 --target=node16 --sourcemap --clean-dist",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "repository": {

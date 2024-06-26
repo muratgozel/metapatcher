@@ -429,6 +429,10 @@ class Metapatcher {
       return "";
     return this.memory.join("\n");
   }
+  flushMemory() {
+    this.memory = [];
+    return this;
+  }
   set(tagName, attrs = {}, settings) {
     tagName = tagName.toLowerCase();
     const isVoid = settings && Object.hasOwn(settings, "void") ? settings.void : this.htmlVoidElements.includes(tagName);
@@ -554,3 +558,4 @@ const metapatcher = new Metapatcher();
 
 exports.Metapatcher = Metapatcher;
 exports.metapatcher = metapatcher;
+//# sourceMappingURL=index.cjs.map
