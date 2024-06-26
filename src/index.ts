@@ -328,7 +328,13 @@ export class Metapatcher {
     }
 
     setDocumentTitle(title: string): this {
-        if (!this.isDomAvailable) this.memory.push(`<title>${title}</title>`)
+        if (!this.isDomAvailable) {
+            const predicate = (line: string) => line.includes('<title>') && line.includes('</title>')
+            if (this.memory.some(predicate)) {
+                this.memory = this.memory.map((line) => predicate(line) ? `<title>${title}</title>` : line)
+            }
+            else this.memory.push(`<title>${title}</title>`)
+        }
         else document.title = title
         return this
     }

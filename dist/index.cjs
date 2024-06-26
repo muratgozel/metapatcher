@@ -282,9 +282,13 @@ class Metapatcher {
     return this;
   }
   setDocumentTitle(title) {
-    if (!this.isDomAvailable)
-      this.memory.push(`<title>${title}</title>`);
-    else
+    if (!this.isDomAvailable) {
+      const predicate = (line) => line.includes("<title>") && line.includes("</title>");
+      if (this.memory.some(predicate)) {
+        this.memory = this.memory.map((line) => predicate(line) ? `<title>${title}</title>` : line);
+      } else
+        this.memory.push(`<title>${title}</title>`);
+    } else
       document.title = title;
     return this;
   }

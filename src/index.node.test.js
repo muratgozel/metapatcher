@@ -15,6 +15,11 @@ test('no duplicate records', () => {
     metapatcher.setCanonical('https://asdad.com')
     expect(metapatcher.memory).toContain('<link id="metapatcher-canonical" rel="canonical" href="https://asdad.com" />')
     expect(metapatcher.memory).not.toContain('<link id="metapatcher-canonical" rel="canonical" href="https://example.com" />')
+    metapatcher.setDocumentTitle('lorem')
+    expect(metapatcher.memory).toContain('<title>lorem</title>')
+    metapatcher.setDocumentTitle('ipsum')
+    expect(metapatcher.memory).not.toContain('<title>lorem</title>')
+    expect(metapatcher.memory).toContain('<title>ipsum</title>')
 })
 
 test.only('keep memory on dump', () => {
