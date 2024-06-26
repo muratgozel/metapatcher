@@ -92,6 +92,11 @@ metapatcher.setMobileVariant (param: string | MetapatcherMobileVariantLinkAttrs)
 
 It will inject appropriate meta tags, link tags, jsonld scripts for specific platforms and devices depending on the enabled features.
 
+To set any other kind of meta tags:
+```js
+metapatcher.setMeta('google', 'notranslate')
+```
+
 ### Server-side Usage
 The library has a simple `isDomAvailable` property which get its value upon init by a simple check `typeof document !== 'undefined'`. This property decides if the library should inject tags or collect them in memory. So, when you run the library in a non-browser environment, they will be kept in memory. You can print them all with:
 ```js

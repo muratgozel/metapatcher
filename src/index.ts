@@ -421,6 +421,13 @@ export class Metapatcher {
         return this
     }
 
+    setMeta (name: string, content: string): this {
+        this.removeOne('meta', { name })
+        this.set('meta', { name, content })
+
+        return this
+    }
+
     setMobileVariant (param: string | MetapatcherMobileVariantLinkAttrs): this {
         const id = this.idPrefix + '-mobile-variant'
         const attrs: MetapatcherMobileVariantLinkAttrs = typeof param === 'string'

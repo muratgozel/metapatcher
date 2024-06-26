@@ -58,6 +58,7 @@ declare class Metapatcher {
     setJsonLdDom(id: string, data: string): HTMLScriptElement;
     setJsonLdMemory(id: string, data: string): string;
     setCanonical(param: string | MetapatcherCanonicalLinkAttrs): this;
+    setMeta(name: string, content: string): this;
     setMobileVariant(param: string | MetapatcherMobileVariantLinkAttrs): this;
     setLocalVersions(param: MetapatcherLocalVersionLinkAttrs[], currentLang?: string): this;
     setJsonLd(id: string, data: Record<string, never>): HTMLScriptElement | string;

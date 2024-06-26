@@ -150,6 +150,18 @@ test('set "msapplication-config"', () => {
     expect(data).toEqual(expect.stringContaining('<meta id="metapatcher-msapplication-config" name="msapplication-config" content="/browserconfig.xml">'))
 })
 
+test('set meta', () => {
+    metapatcher.setMeta('google', 'notranslate')
+    const len = document.head.querySelectorAll('meta[name="google"]').length
+    expect(len).toBe(1)
+
+    metapatcher.setMeta('google', 'translate')
+    const len2 = document.head.querySelectorAll('meta[name="google"]').length
+    expect(len2).toBe(1)
+    const data = document.head.outerHTML
+    expect(data).toEqual(expect.stringContaining('<meta name="google" content="translate">'))
+})
+
 /*
 test('set script tags', async () => {
     const result = await metapatcher.setScript({ id: 'my-script', src: 'https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js', async: true })

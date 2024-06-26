@@ -353,6 +353,11 @@ class Metapatcher {
     this.set("link", attrs);
     return this;
   }
+  setMeta(name, content) {
+    this.removeOne("meta", { name });
+    this.set("meta", { name, content });
+    return this;
+  }
   setMobileVariant(param) {
     const id = this.idPrefix + "-mobile-variant";
     const attrs = typeof param === "string" ? { id, rel: "alternate", href: param, media: "only screen and (max-width: 640px)" } : Object.assign({}, param, { id, rel: "alternate" });
