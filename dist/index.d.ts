@@ -41,7 +41,6 @@ declare class Metapatcher {
     setProjectDetails(params: MetapatcherProjectParams): this;
     setProjectName(name: string): this;
     setProjectUrl(url: string): this;
-    setProjectLogo(logo: string, url: string): HTMLScriptElement | string;
     setThemeColor(colorHexCode: string): this;
     setTwitterSite(username: string): this;
     addDnsPrefetch(param: string | MetapatcherDnsPrefetchAttrs): this;
@@ -190,6 +189,18 @@ interface MetapatcherProjectParams {
     twitterSite?: string;
     safariPinnedTab?: MetapatcherSafariPinnedTabAttrs;
     icons?: string[];
+    email?: string;
+    phone?: string;
+    description?: string;
+    image?: string;
+    legalName?: string;
+    address?: {
+        country: string;
+        region?: string;
+        city?: string;
+        postalCode?: string;
+        street?: string;
+    };
 }
 interface MetapatcherMsApplicationConfigAttrs {
     readonly name?: 'msapplication-config';

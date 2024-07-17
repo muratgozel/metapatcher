@@ -123,7 +123,7 @@ test('set breadcrumb', () => {
     const b = [{ title: 'abc', url: '/abc' }, { title: 'def', url: '/abc/def' }]
     metapatcher.setBreadcrumb(b)
     const data = document.head.outerHTML
-    expect(data).toEqual(expect.stringContaining('<script id="metapatcher-breadcrumb" type="application/ld+json">{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"abc","item":"/abc"},{"@type":"ListItem","position":2,"name":"def","item":"/abc/def"}]}</script>'))
+    expect(data).toEqual(expect.stringContaining('<script id="metapatcher-breadcrumb" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"abc","item":"/abc"},{"@type":"ListItem","position":2,"name":"def","item":"/abc/def"}]}</script>'))
 })
 
 test('set safari pinned tab', () => {

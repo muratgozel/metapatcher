@@ -197,11 +197,41 @@ export class Metapatcher {
         if (params.name) this.setProjectName(params.name)
         if (params.url) this.setProjectUrl(params.url)
         if (params.robots) this.setRobots(params.robots)
-        if (params.logo && params.url) this.setProjectLogo(params.logo, params.url)
         if (params.themeColor) this.setThemeColor(params.themeColor)
         if (params.twitterSite) this.setTwitterSite(params.twitterSite)
         if (params.safariPinnedTab) this.setSafariPinnedTab(params.safariPinnedTab)
         if (params.icons) this.setIcons(params.icons)
+
+        if (this.features.includes('structuredData')) {
+            const id = this.idPrefix + '-project-org'
+            const json: Record<string, string | Record<string, string>> = {
+                '@context': 'https://schema.org',
+                '@type': 'Organization'
+            }
+            if (params.logo) json['logo'] = params.logo
+            if (params.url) json['url'] = params.url
+            if (params.name) json['name'] = params.name
+            if (params.email) json['email'] = params.email
+            if (params.phone) json['telephone'] = params.phone
+            if (params.description) json['description'] = params.description
+            if (params.image) json['image'] = params.image
+            if (params.legalName) json['legalName'] = params.legalName
+            if (params.address) {
+                json['address'] = {
+                    '@type': 'PostalAddress'
+                }
+                if (params.address.country) json['address']['addressCountry'] = params.address.country
+                if (params.address.region) json['address']['addressRegion'] = params.address.region
+                if (params.address.city) json['address']['addressLocality'] = params.address.city
+                if (params.address.postalCode) json['address']['postalCode'] = params.address.postalCode
+                if (params.address.street) json['address']['streetAddress'] = params.address.street
+            }
+            const _data = JSON.stringify(json)
+
+            this.removeOne('script', { id: id })
+            if (this.isDomAvailable) this.setJsonLdDom(id, _data)
+            else this.setJsonLdMemory(id, _data)
+        }
 
         return this
     }
@@ -232,24 +262,6 @@ export class Metapatcher {
             this.set('meta', { id, name: 'msapplication-starturl', content: url })
         }
         return this
-    }
-
-    setProjectLogo (logo: string, url: string): HTMLScriptElement | string {
-        if (this.features.includes('structuredData')) {
-            const id = this.idPrefix + '-project-logo'
-            const json = {
-                '@type': 'Organization',
-                logo: logo,
-                url: url
-            }
-            const _data = JSON.stringify(json)
-
-            this.removeOne('script', { id: id })
-
-            return this.isDomAvailable ? this.setJsonLdDom(id, _data) : this.setJsonLdMemory(id, _data)
-        }
-
-        return ''
     }
 
     setThemeColor (colorHexCode: string): this {
@@ -383,6 +395,7 @@ export class Metapatcher {
 
         const id = this.idPrefix + '-breadcrumb'
         const json = {
+            '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             'itemListElement': data.map(({title, url}, ind) => ({
                 '@type': 'ListItem',
@@ -822,6 +835,18 @@ export interface MetapatcherProjectParams {
     twitterSite?: string
     safariPinnedTab?: MetapatcherSafariPinnedTabAttrs
     icons?: string[]
+    email?: string
+    phone?: string
+    description?: string
+    image?: string
+    legalName?: string
+    address?: {
+        country: string
+        region?: string
+        city?: string
+        postalCode?: string
+        street?: string
+    }
 }
 
 export interface MetapatcherMsApplicationConfigAttrs {
