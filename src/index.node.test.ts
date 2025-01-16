@@ -24,7 +24,7 @@ test("no duplicate records", () => {
     expect(metapatcher.memory).toContain("<title>ipsum</title>");
 });
 
-test.only("keep memory on dump", () => {
+test("keep memory on dump", () => {
     expect(metapatcher.isDomAvailable).toEqual(false);
     metapatcher.setCanonical("https://example.com");
     expect(metapatcher.dump()).toContain(
@@ -35,7 +35,7 @@ test.only("keep memory on dump", () => {
     );
 });
 
-test.only("flush memory", () => {
+test("flush memory", () => {
     metapatcher.setCanonical("https://example.com");
     expect(metapatcher.dump()).toContain(
         '<link id="metapatcher-canonical" rel="canonical" href="https://example.com" />',
