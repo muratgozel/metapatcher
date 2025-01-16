@@ -1,4 +1,4 @@
-declare class Metapatcher {
+export declare class Metapatcher {
     features: MetapatcherFeatures[];
     idPrefix: string;
     idCounters: {
@@ -74,81 +74,81 @@ declare class Metapatcher {
     serializeAttrs(attrs?: MetapatcherHtmlTagAttrs): string;
     findMimeType(path: string): string | undefined;
 }
-type MetapatcherFeatures = 'structuredData' | 'webAppManifest' | 'msTags' | 'appleTags' | 'openGraphTags' | 'twitterTags';
-interface MetapatcherSettings {
+export type MetapatcherFeatures = 'structuredData' | 'webAppManifest' | 'msTags' | 'appleTags' | 'openGraphTags' | 'twitterTags';
+export interface MetapatcherSettings {
     idPrefix?: string;
 }
-type MetapatcherHtmlTagAttrs = Record<string, string | boolean>;
-interface MetapatcherSetStylesheetAttrs {
+export type MetapatcherHtmlTagAttrs = Record<string, string | boolean>;
+export interface MetapatcherSetStylesheetAttrs {
     id: string;
     readonly rel?: 'stylesheet';
     href: string;
     media?: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherSetStylesheetSettings {
+export interface MetapatcherSetStylesheetSettings {
     location?: 'headEnd' | 'bodyEnd' | 'bodyStart';
     timeout?: number;
 }
-interface MetapatcherSetJsAttrs {
+export interface MetapatcherSetJsAttrs {
     id: string;
     type?: string;
     src: string;
     async?: boolean;
     [index: string]: string | boolean;
 }
-interface MetapatcherSetJsSettings {
+export interface MetapatcherSetJsSettings {
     location?: 'headEnd' | 'bodyEnd' | 'bodyStart';
     waitForLoad?: string;
     timeout?: number;
 }
-interface MetapatcherSetSettings {
+export interface MetapatcherSetSettings {
     void?: boolean;
 }
-interface MetapatcherCanonicalLinkAttrs {
+export interface MetapatcherCanonicalLinkAttrs {
     readonly rel?: 'canonical';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherMobileVariantLinkAttrs {
+export interface MetapatcherMobileVariantLinkAttrs {
     readonly rel?: 'alternate';
     id?: string;
     media: string;
     href: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherLocalVersionLinkAttrs {
+export interface MetapatcherLocalVersionLinkAttrs {
     readonly rel?: 'alternate';
     id?: string;
     hreflang: string;
     href: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherBreadcrumb {
+export interface MetapatcherBreadcrumb {
     title: string;
     url: string;
 }
-interface MetapatcherSafariPinnedTabAttrs {
+export interface MetapatcherSafariPinnedTabAttrs {
     readonly rel?: 'mask-icon';
     id?: string;
     href: string;
     color: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherFaviconAttrs {
+export interface MetapatcherFaviconAttrs {
     readonly rel?: 'shortcut icon';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherRobotsAttrs {
+export interface MetapatcherRobotsAttrs {
     readonly name?: 'robots';
     id?: string;
     content: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherPreloadAttrs {
+export interface MetapatcherPreloadAttrs {
     readonly rel?: 'preload';
     id?: string;
     href: string;
@@ -158,26 +158,26 @@ interface MetapatcherPreloadAttrs {
     crossorigin?: boolean;
     [index: string]: string | boolean;
 }
-type MetapatcherPreloadAs = 'audio' | 'document' | 'embed' | 'fetch' | 'font' | 'image' | 'object' | 'script' | 'style' | 'track' | 'worker' | 'video';
-interface MetapatcherPrefetchAttrs {
+export type MetapatcherPreloadAs = 'audio' | 'document' | 'embed' | 'fetch' | 'font' | 'image' | 'object' | 'script' | 'style' | 'track' | 'worker' | 'video';
+export interface MetapatcherPrefetchAttrs {
     readonly rel?: 'prefetch';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherPreconnectAttrs {
+export interface MetapatcherPreconnectAttrs {
     readonly rel?: 'preconnect';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherDnsPrefetchAttrs {
+export interface MetapatcherDnsPrefetchAttrs {
     readonly rel?: 'dns-prefetch';
     id?: string;
     href: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherProjectParams {
+export interface MetapatcherProjectParams {
     favicon?: string | MetapatcherFaviconAttrs;
     name?: string;
     url?: string;
@@ -202,13 +202,13 @@ interface MetapatcherProjectParams {
         street?: string;
     };
 }
-interface MetapatcherMsApplicationConfigAttrs {
+export interface MetapatcherMsApplicationConfigAttrs {
     readonly name?: 'msapplication-config';
     id?: string;
     content: string;
     [index: string]: string | boolean;
 }
-interface MetapatcherPageParams {
+export interface MetapatcherPageParams {
     title?: string;
     description?: string;
     path?: string;
@@ -220,11 +220,9 @@ interface MetapatcherPageParams {
     localVersions?: MetapatcherLocalVersionLinkAttrs[];
     breadcrumb?: MetapatcherBreadcrumb[];
 }
-interface MetapatcherPageImage {
+export interface MetapatcherPageImage {
     path: string;
     width?: string | number;
     height?: string | number;
 }
-declare const metapatcher: Metapatcher;
-
-export { Metapatcher, type MetapatcherBreadcrumb, type MetapatcherCanonicalLinkAttrs, type MetapatcherDnsPrefetchAttrs, type MetapatcherFaviconAttrs, type MetapatcherFeatures, type MetapatcherHtmlTagAttrs, type MetapatcherLocalVersionLinkAttrs, type MetapatcherMobileVariantLinkAttrs, type MetapatcherMsApplicationConfigAttrs, type MetapatcherPageImage, type MetapatcherPageParams, type MetapatcherPreconnectAttrs, type MetapatcherPrefetchAttrs, type MetapatcherPreloadAs, type MetapatcherPreloadAttrs, type MetapatcherProjectParams, type MetapatcherRobotsAttrs, type MetapatcherSafariPinnedTabAttrs, type MetapatcherSetJsAttrs, type MetapatcherSetJsSettings, type MetapatcherSetSettings, type MetapatcherSetStylesheetAttrs, type MetapatcherSetStylesheetSettings, type MetapatcherSettings, metapatcher };
+export declare const metapatcher: Metapatcher;
